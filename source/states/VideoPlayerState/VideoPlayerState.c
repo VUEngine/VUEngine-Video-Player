@@ -270,6 +270,7 @@ void VideoPlayerState::printFrames()
 {
 	int currentFrame = AnimatedEntity::getActualFrame(this->videoEntity);
 	currentFrame >>= 1;
+	currentFrame += 1;
 
 	if(currentFrame >= 100)
 	{
@@ -309,7 +310,7 @@ void VideoPlayerState::pauseVideo()
 
 	int currentFrame = AnimatedEntity::getActualFrame(this->videoEntity);
 
-	// if currentFrame is odd, go to previous frame (4 color version)
+	// if currentFrame is odd, go to previous frame (4 color frame)
 	if(currentFrame & 1)
 	{
 		AnimatedEntity::previousFrame(AnimatedEntity::safeCast(this->videoEntity));
