@@ -43,6 +43,7 @@ singleton class VideoPlayerState : GameState
 	int numberOfFrames;
 	bool videoPlaying;
 	bool guiVisible;
+	bool hiColorMode;
 
 	static VideoPlayerState getInstance();
 	override void enter(void* owner);

@@ -57,6 +57,7 @@ void VideoPlayerState::constructor()
 	this->videoPlaying = true;
 	this->guiVisible = false;
 	this->numberOfFrames = 0;
+	this->hiColorMode = true;
 }
 
 void VideoPlayerState::destructor()
@@ -124,19 +125,18 @@ void VideoPlayerState::execute(void* owner)
 		VideoPlayerState::printProgress(this);
 	}
 
-	// if the video is paused, make sure to alternate the two frames that make the hi-color image
-	if(!this->videoPlaying)
+	// if the video is paused in hicolor mode, make sure to alternate the two frames that make the hi-color image
+	if(!this->videoPlaying && this->hiColorMode)
 	{
 		int currentFrame = AnimatedEntity::getActualFrame(this->videoEntity);
 
-		// if currentFrame is odd
 		if(currentFrame & 1)
 		{
-			AnimatedEntity::nextFrame(AnimatedEntity::safeCast(this->videoEntity));
+			AnimatedEntity::previousFrame(AnimatedEntity::safeCast(this->videoEntity));
 		}
 		else
 		{
-			AnimatedEntity::previousFrame(AnimatedEntity::safeCast(this->videoEntity));
+			AnimatedEntity::nextFrame(AnimatedEntity::safeCast(this->videoEntity));
 		}
 	}
 }
@@ -152,7 +152,7 @@ void VideoPlayerState::processUserInput(UserInput userInput)
 		// pause animation
 		if(this->videoPlaying)
 		{
-			AnimatedEntity::pauseAnimation(AnimatedEntity::safeCast(this->videoEntity), true);
+			VideoPlayerState::pauseVideo(this);
 			AnimatedEntity::playAnimation(AnimatedEntity::safeCast(this->playEntity), "Pause");
 			this->videoPlaying = false;
 			VideoPlayerState::showGui(this);
@@ -174,7 +174,7 @@ void VideoPlayerState::processUserInput(UserInput userInput)
 		// pause animation
 		if(this->videoPlaying)
 		{
-			AnimatedEntity::pauseAnimation(AnimatedEntity::safeCast(this->videoEntity), true);
+			VideoPlayerState::pauseVideo(this);
 			AnimatedEntity::playAnimation(AnimatedEntity::safeCast(this->playEntity), "Pause");
 			this->videoPlaying = false;
 			VideoPlayerState::showGui(this);
@@ -190,7 +190,14 @@ void VideoPlayerState::processUserInput(UserInput userInput)
 	else if(userInput.pressedKey & K_STA)
 	{
 		// pause/resume animation
-		AnimatedEntity::pauseAnimation(AnimatedEntity::safeCast(this->videoEntity), this->videoPlaying);
+		if(this->videoPlaying)
+		{
+			VideoPlayerState::pauseVideo(this);
+		}
+		else
+		{
+			AnimatedEntity::pauseAnimation(AnimatedEntity::safeCast(this->videoEntity), false);
+		}
 		this->videoPlaying = !this->videoPlaying;
 		if(this->videoPlaying)
 		{
@@ -216,6 +223,14 @@ void VideoPlayerState::processUserInput(UserInput userInput)
 				VideoPlayerState::showGui(this);
 			}
 		}
+	}
+	else if(userInput.pressedKey & K_A)
+	{
+		this->hiColorMode = !this->hiColorMode;
+		int currentFrame = AnimatedEntity::getActualFrame(this->videoEntity);
+		AnimatedEntity::playAnimation(AnimatedEntity::safeCast(this->videoEntity), this->hiColorMode ? "HiColor" : "4Color");
+		AnimatedEntity::setActualFrame(this->videoEntity, currentFrame);
+		AnimatedEntity::pauseAnimation(AnimatedEntity::safeCast(this->videoEntity), !this->videoPlaying);
 	}
 }
 
@@ -285,6 +300,19 @@ void VideoPlayerState::printFrames()
 	{
 		Printing::text(Printing::getInstance(), "/00", 43, 26, NULL);
 		Printing::int(Printing::getInstance(), this->numberOfFrames, 46, 26, NULL);
+	}
+}
+
+void VideoPlayerState::pauseVideo()
+{
+	AnimatedEntity::pauseAnimation(AnimatedEntity::safeCast(this->videoEntity), true);
+
+	int currentFrame = AnimatedEntity::getActualFrame(this->videoEntity);
+
+	// if currentFrame is odd, go to previous frame (4 color version)
+	if(currentFrame & 1)
+	{
+		AnimatedEntity::previousFrame(AnimatedEntity::safeCast(this->videoEntity));
 	}
 }
 
