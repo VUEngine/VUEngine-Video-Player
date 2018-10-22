@@ -117,10 +117,27 @@ void VideoPlayerState::execute(void* owner)
 {
 	Base::execute(this, owner);
 
+	// refresh GUI if the video is playing
 	if(this->guiVisible && this->videoPlaying)
 	{
 		VideoPlayerState::printFrames(this);
 		VideoPlayerState::printProgress(this);
+	}
+
+	// if the video is paused, make sure to alternate the two frames that make the hi-color image
+	if(!this->videoPlaying)
+	{
+		int currentFrame = AnimatedEntity::getActualFrame(this->videoEntity);
+
+		// if currentFrame is odd
+		if(currentFrame & 1)
+		{
+			AnimatedEntity::nextFrame(AnimatedEntity::safeCast(this->videoEntity));
+		}
+		else
+		{
+			AnimatedEntity::previousFrame(AnimatedEntity::safeCast(this->videoEntity));
+		}
 	}
 }
 
@@ -143,6 +160,7 @@ void VideoPlayerState::processUserInput(UserInput userInput)
 
 		// show next frame
 		AnimatedEntity::nextFrame(AnimatedEntity::safeCast(this->videoEntity));
+		AnimatedEntity::nextFrame(AnimatedEntity::safeCast(this->videoEntity));
 
 		VideoPlayerState::printFrames(this);
 		VideoPlayerState::printProgress(this);
@@ -163,6 +181,7 @@ void VideoPlayerState::processUserInput(UserInput userInput)
 		}
 
 		// show previous frame
+		AnimatedEntity::previousFrame(AnimatedEntity::safeCast(this->videoEntity));
 		AnimatedEntity::previousFrame(AnimatedEntity::safeCast(this->videoEntity));
 
 		VideoPlayerState::printFrames(this);
