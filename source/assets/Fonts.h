@@ -35,7 +35,7 @@
 //											  DECLARATIONS
 //---------------------------------------------------------------------------------------------------------
 
-extern FontDefinition NUMBER_FONT;
+extern FontSpec NUMBER_FONT;
 
 
 #endif

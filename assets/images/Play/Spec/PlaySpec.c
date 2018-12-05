@@ -40,7 +40,7 @@ extern BYTE PlayMap[];
 //												DEFINITIONS
 //---------------------------------------------------------------------------------------------------------
 
-AnimationFunctionROMDef PLAY_PLAY_ANIM =
+AnimationFunctionROMSpec PLAY_PLAY_ANIM =
 {
 	// number of frames of this animation function
 	1,
@@ -61,7 +61,7 @@ AnimationFunctionROMDef PLAY_PLAY_ANIM =
 	"Play",
 };
 
-AnimationFunctionROMDef PLAY_PAUSE_ANIM =
+AnimationFunctionROMSpec PLAY_PAUSE_ANIM =
 {
 	// number of frames of this animation function
 	1,
@@ -82,8 +82,8 @@ AnimationFunctionROMDef PLAY_PAUSE_ANIM =
 	"Pause",
 };
 
-// an animation definition
-AnimationDescriptionROMDef PLAY_ANIM =
+// an animation spec
+AnimationDescriptionROMSpec PLAY_ANIM =
 {
 	// animation functions
 	{
@@ -94,7 +94,7 @@ AnimationDescriptionROMDef PLAY_ANIM =
 	}
 };
 
-CharSetROMDef PLAY_CH =
+CharSetROMSpec PLAY_CH =
 {
 	// number of chars, depending on allocation type:
 	// __ANIMATED_SINGLE*, __ANIMATED_SHARED*: number of chars of a single animation frame (cols * rows)
@@ -105,16 +105,16 @@ CharSetROMDef PLAY_CH =
 	// (__ANIMATED_SINGLE, __ANIMATED_SINGLE_OPTIMIZED, __ANIMATED_SHARED, __ANIMATED_SHARED_COORDINATED, __ANIMATED_MULTI or __NOT_ANIMATED)
 	__ANIMATED_SINGLE_OPTIMIZED,
 
-	// char definition
+	// char spec
 	PlayTiles,
 };
 
-TextureROMDef PLAY_TX =
+TextureROMSpec PLAY_TX =
 {
-	// charset definition
-	(CharSetDefinition*)&PLAY_CH,
+	// charset spec
+	(CharSetSpec*)&PLAY_CH,
 
-	// bgmap definition
+	// bgmap spec
 	PlayMap,
 
 	// cols (max 64)
@@ -138,14 +138,14 @@ TextureROMDef PLAY_TX =
 	true,
 };
 
-BgmapSpriteROMDef PLAY_SPRITE =
+BgmapSpriteROMSpec PLAY_SPRITE =
 {
 	{
 		// sprite's type
 		__TYPE(BgmapAnimatedSprite),
 
-		// texture definition
-		(TextureDefinition*)&PLAY_TX,
+		// texture spec
+		(TextureSpec*)&PLAY_TX,
 
 		// transparent (__TRANSPARENCY_NONE, __TRANSPARENCY_EVEN or __TRANSPARENCY_ODD)
 		__TRANSPARENCY_NONE,
@@ -155,7 +155,7 @@ BgmapSpriteROMDef PLAY_SPRITE =
 	},
 
 	// bgmap mode (__WORLD_BGMAP, __WORLD_AFFINE, __WORLD_OBJECT or __WORLD_HBIAS)
-	// make sure to use the proper corresponding sprite type throughout the definition (BgmapSprite or ObjectSprite)
+	// make sure to use the proper corresponding sprite type throughout the spec (BgmapSprite or ObjectSprite)
 	__WORLD_BGMAP,
 
 	// pointer to affine / hbias manipulation function
@@ -165,23 +165,23 @@ BgmapSpriteROMDef PLAY_SPRITE =
 	__WORLD_ON,
 };
 
-BgmapSpriteROMDef* const PLAY_SPRITES[] =
+BgmapSpriteROMSpec* const PLAY_SPRITES[] =
 {
 	&PLAY_SPRITE,
 	NULL
 };
 
-AnimatedEntityROMDef PLAY_EN =
+AnimatedEntityROMSpec PLAY_EN =
 {
 	{
 		// class allocator
 		__TYPE(AnimatedEntity),
 
 		// sprites
-		(SpriteROMDef**)PLAY_SPRITES,
+		(SpriteROMSpec**)PLAY_SPRITES,
 
 		// collision shapes
-		(ShapeDefinition*)NULL,
+		(ShapeSpec*)NULL,
 
 		// size
 		// if 0, width and height will be inferred from the first sprite's texture's size
@@ -194,7 +194,7 @@ AnimatedEntityROMDef PLAY_EN =
 		(PhysicalSpecification*)NULL,
 	},
 
-	// pointer to the animation definition for the item
+	// pointer to the animation spec for the item
 	(AnimationDescription*)&PLAY_ANIM,
 
 	// initial animation

@@ -38,7 +38,7 @@ extern BYTE NumberFontTiles[];
 //												DEFINITIONS
 //---------------------------------------------------------------------------------------------------------
 
-CharSetROMDef NUMBER_FONT_CH =
+CharSetROMSpec NUMBER_FONT_CH =
 {
 	// number of chars
 	14,
@@ -46,14 +46,14 @@ CharSetROMDef NUMBER_FONT_CH =
 	// allocation type
 	__NOT_ANIMATED,
 
-	// char definition
+	// char spec
 	NumberFontTiles,
 };
 
-FontROMDef NUMBER_FONT =
+FontROMSpec NUMBER_FONT =
 {
-	// font charset definition pointer
-	(CharSetDefinition*)&NUMBER_FONT_CH,
+	// font charset spec pointer
+	(CharSetSpec*)&NUMBER_FONT_CH,
 
 	// character number at which the font starts, allows you to skip the control characters for example
 	46,

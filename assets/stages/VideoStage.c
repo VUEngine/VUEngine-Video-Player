@@ -33,16 +33,16 @@
 // 												DECLARATIONS
 //---------------------------------------------------------------------------------------------------------
 
-extern EntityDefinition PLAY_EN;
-extern EntityDefinition PROGRESS_BAR_EN;
-extern EntityDefinition VIDEO_EN;
+extern EntitySpec PLAY_EN;
+extern EntitySpec PROGRESS_BAR_EN;
+extern EntitySpec VIDEO_EN;
 
 
 //---------------------------------------------------------------------------------------------------------
 // 												ASSETS
 //---------------------------------------------------------------------------------------------------------
 
-PositionedEntityROMDef VIDEO_ST_CHILDREN[] =
+PositionedEntityROMSpec VIDEO_ST_CHILDREN[] =
 {
 	{&PLAY_EN,			{ 12, 208, 0, 0}, 0, "PlayEnt", NULL, NULL, true},
 	{&PROGRESS_BAR_EN,	{180, 208, 0, 0}, 0, "ProgrEnt", NULL, NULL, true},
@@ -56,7 +56,7 @@ PositionedEntityROMDef VIDEO_ST_CHILDREN[] =
 // 											PRELOAD LISTS
 //---------------------------------------------------------------------------------------------------------
 
-FontROMDef* const VIDEO_ST_FONTS[] =
+FontROMSpec* const VIDEO_ST_FONTS[] =
 {
 	&NUMBER_FONT,
 
@@ -68,7 +68,7 @@ FontROMDef* const VIDEO_ST_FONTS[] =
 // 											STAGE DEFINITION
 //---------------------------------------------------------------------------------------------------------
 
-StageROMDef VIDEO_ST =
+StageROMSpec VIDEO_ST =
 {
 	// allocator
 	__TYPE(Stage),
@@ -157,7 +157,7 @@ StageROMDef VIDEO_ST =
             },
 
             // brightness repeat
-            (BrightnessRepeatDefinition*)NULL,
+            (BrightnessRepeatSpec*)NULL,
         },
 
         // palettes' config
@@ -246,13 +246,13 @@ StageROMDef VIDEO_ST =
     // assets
     {
         // fonts to preload
-        (FontDefinition**)VIDEO_ST_FONTS,
+        (FontSpec**)VIDEO_ST_FONTS,
 
         // char sets to preload
-        (CharSetDefinition**)NULL,
+        (CharSetSpec**)NULL,
 
         // textures to preload
-		(TextureDefinition**)NULL,
+		(TextureSpec**)NULL,
 
         // background music
         NULL,

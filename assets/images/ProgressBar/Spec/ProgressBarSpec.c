@@ -40,7 +40,7 @@ extern BYTE ProgressBarMap[];
 //												DEFINITIONS
 //---------------------------------------------------------------------------------------------------------
 
-CharSetROMDef PROGRESS_BAR_CH =
+CharSetROMSpec PROGRESS_BAR_CH =
 {
 	// number of chars, depending on allocation type:
 	// __ANIMATED_SINGLE*, __ANIMATED_SHARED*: number of chars of a single animation frame (cols * rows)
@@ -51,16 +51,16 @@ CharSetROMDef PROGRESS_BAR_CH =
 	// (__ANIMATED_SINGLE, __ANIMATED_SINGLE_OPTIMIZED, __ANIMATED_SHARED, __ANIMATED_SHARED_COORDINATED, __ANIMATED_MULTI or __NOT_ANIMATED)
 	__NOT_ANIMATED,
 
-	// char definition
+	// char spec
 	ProgressBarTiles,
 };
 
-TextureROMDef PROGRESS_BAR_TX =
+TextureROMSpec PROGRESS_BAR_TX =
 {
-	// charset definition
-	(CharSetDefinition*)&PROGRESS_BAR_CH,
+	// charset spec
+	(CharSetSpec*)&PROGRESS_BAR_CH,
 
-	// bgmap definition
+	// bgmap spec
 	ProgressBarMap,
 
 	// cols (max 64)
@@ -84,14 +84,14 @@ TextureROMDef PROGRESS_BAR_TX =
 	false,
 };
 
-BgmapSpriteROMDef PROGRESS_BAR_SPRITE =
+BgmapSpriteROMSpec PROGRESS_BAR_SPRITE =
 {
 	{
 		// sprite's type
 		__TYPE(BgmapSprite),
 
-		// texture definition
-		(TextureDefinition*)&PROGRESS_BAR_TX,
+		// texture spec
+		(TextureSpec*)&PROGRESS_BAR_TX,
 
 		// transparent (__TRANSPARENCY_NONE, __TRANSPARENCY_EVEN or __TRANSPARENCY_ODD)
 		__TRANSPARENCY_NONE,
@@ -101,7 +101,7 @@ BgmapSpriteROMDef PROGRESS_BAR_SPRITE =
 	},
 
 	// bgmap mode (__WORLD_BGMAP, __WORLD_AFFINE, __WORLD_OBJECT or __WORLD_HBIAS)
-	// make sure to use the proper corresponding sprite type throughout the definition (BgmapSprite or ObjectSprite)
+	// make sure to use the proper corresponding sprite type throughout the spec (BgmapSprite or ObjectSprite)
 	__WORLD_BGMAP,
 
 	// pointer to affine/hbias manipulation function
@@ -111,22 +111,22 @@ BgmapSpriteROMDef PROGRESS_BAR_SPRITE =
 	__WORLD_ON,
 };
 
-BgmapSpriteROMDef* const PROGRESS_BAR_SPRITES[] =
+BgmapSpriteROMSpec* const PROGRESS_BAR_SPRITES[] =
 {
 	&PROGRESS_BAR_SPRITE,
 	NULL
 };
 
-EntityROMDef PROGRESS_BAR_EN =
+EntityROMSpec PROGRESS_BAR_EN =
 {
 	// class allocator
 	__TYPE(Entity),
 
 	// sprites
-	(SpriteROMDef**)PROGRESS_BAR_SPRITES,
+	(SpriteROMSpec**)PROGRESS_BAR_SPRITES,
 
 	// collision shapes
-	(ShapeDefinition*)NULL,
+	(ShapeSpec*)NULL,
 
 	// size
 	// if 0, width and height will be inferred from the first sprite's texture's size
