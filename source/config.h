@@ -28,7 +28,7 @@
 //---------------------------------------------------------------------------------------------------------
 
 // Don't forget the \n character at the end
-#define __GAME_TITLE		"Videp-Player\n"
+#define __GAME_TITLE		"Video-Player\n"
 #define __PUBLISHER_ID		"TV"
 #define __GAME_ID			"VP"
 #define __ROM_VERSION		1
