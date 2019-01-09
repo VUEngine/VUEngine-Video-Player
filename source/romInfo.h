@@ -28,11 +28,11 @@
 //---------------------------------------------------------------------------------------------------------
 
 // game title (20 chars) 	 ####################
-#define __GAME_TITLE		"VUENGINE VID PLAYER "
+#define __GAME_TITLE		"VUEngine VideoPlayer"
 // maker code (2 chars)		 ##
-#define __MAKER_CODE		"TV"
+#define __MAKER_CODE		"CR"
 // game code (4 chars)		 ####
-#define __GAME_CODE			"VVVP"
+#define __GAME_CODE			"VVPE"
 // revision (1.x)			 #
 #define __ROM_VERSION		 0
 
