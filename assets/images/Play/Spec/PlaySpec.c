@@ -177,8 +177,11 @@ AnimatedEntityROMSpec PLAY_EN =
 		// class allocator
 		__TYPE(AnimatedEntity),
 
+		// behaviors 
+		NULL,
+
 		// sprites
-		(SpriteROMSpec**)PLAY_SPRITES,
+		(SpriteSpec**)PLAY_SPRITES,
 
 		// collision shapes
 		(ShapeSpec*)NULL,

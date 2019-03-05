@@ -317,8 +317,11 @@ AnimatedEntityROMSpec VIDEO_EN =
 		// class allocator
 		__TYPE(AnimatedEntity),
 
+		// behaviors 
+		NULL,
+
 		// sprites
-		(SpriteROMSpec**)VIDEO_SPRITES,
+		(SpriteSpec**)VIDEO_SPRITES,
 
 		// collision shapes
 		(ShapeSpec*)NULL,

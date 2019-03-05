@@ -122,8 +122,11 @@ EntityROMSpec PROGRESS_BAR_EN =
 	// class allocator
 	__TYPE(Entity),
 
+	// behaviors 
+	NULL,
+
 	// sprites
-	(SpriteROMSpec**)PROGRESS_BAR_SPRITES,
+	(SpriteSpec**)PROGRESS_BAR_SPRITES,
 
 	// collision shapes
 	(ShapeSpec*)NULL,
