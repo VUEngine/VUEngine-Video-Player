@@ -4,6 +4,7 @@
 
 # VUEngine based plugins that the project uses
 PLUGINS 						= 
+
 # Compiler's output
 COMPILER_OUTPUT					= c
 
