@@ -1,8 +1,6 @@
 {
-	"romHeader": {
-		"gameCode": "VVPE",
-		"gameTitle": "VUEngine VideoPlayer",
-		"makerCode": "CR",
-		"revision": 0
-	}
+	"gameCode": "VVPE",
+	"gameTitle": "VUEngine VideoPlayer",
+	"makerCode": "CR",
+	"revision": 0
 }
