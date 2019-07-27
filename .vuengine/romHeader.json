@@ -1,5 +1,7 @@
 {
-	"gameCode": "VVPE",
+	"gameCodeSystem": "V",
+	"gameCodeId": "VP",
+	"gameCodeLanguage": "E",
 	"gameTitle": "VUEngine VideoPlayer",
 	"makerCode": "CR",
 	"revision": 0
