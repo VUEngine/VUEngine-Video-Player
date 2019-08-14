@@ -4,6 +4,9 @@
 			"name": "Play",
 			"template": "entityStacked"
 		},
+		"NumberFont": {
+			"template": "font"
+		},
 		"ProgressBar": {
 			"template": "entity"
 		},
