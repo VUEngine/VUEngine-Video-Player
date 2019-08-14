@@ -1,3 +1,19 @@
 {
-	"folders": {}
+	"folders": {
+		"Play": {
+			"name": "Play",
+			"template": "entityStacked"
+		},
+		"ProgressBar": {
+			"template": "entity"
+		},
+		"Video/Left": {
+			"name": "VideoL",
+			"template": "entityStacked"
+		},
+		"Video/Right": {
+			"name": "VideoR",
+			"template": "entityStacked"
+		}
+	}
 }
