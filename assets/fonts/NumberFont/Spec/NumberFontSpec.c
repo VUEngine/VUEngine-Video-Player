@@ -56,6 +56,9 @@ FontROMSpec NUMBER_FONT =
 	(CharSetSpec*)&NUMBER_FONT_CH,
 
 	// character number at which the font starts, allows you to skip the control characters for example
+	0,
+	
+	// character number at which the font starts, allows you to skip the control characters for example
 	46,
 
 	// number of characters in this font

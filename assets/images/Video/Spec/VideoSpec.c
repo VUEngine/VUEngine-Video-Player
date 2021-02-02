@@ -204,6 +204,12 @@ TextureROMSpec VIDEO_L_TX =
 
 	// recyclable
 	true,
+
+	// vertical flip
+	false,
+
+	// horizontal flip
+	false
 };
 
 BgmapSpriteROMSpec VIDEO_L_SPRITE =
@@ -275,6 +281,12 @@ TextureROMSpec VIDEO_R_TX =
 
 	// recyclable
 	true,
+
+	// vertical flip
+	false,
+
+	// horizontal flip
+	false
 };
 
 BgmapSpriteROMSpec VIDEO_R_SPRITE =
@@ -317,11 +329,20 @@ AnimatedEntityROMSpec VIDEO_EN =
 		// class allocator
 		__TYPE(AnimatedEntity),
 
+		// children
+		NULL,
+
 		// behaviors 
+		NULL,
+
+		// extra info
 		NULL,
 
 		// sprites
 		(SpriteSpec**)VIDEO_SPRITES,
+
+		// use z displacement in projection
+		false,
 
 		// collision shapes
 		(ShapeSpec*)NULL,

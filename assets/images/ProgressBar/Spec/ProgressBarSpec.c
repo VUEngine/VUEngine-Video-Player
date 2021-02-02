@@ -82,6 +82,12 @@ TextureROMSpec PROGRESS_BAR_TX =
 
 	// recyclable
 	false,
+
+	// vertical flip
+	false,
+
+	// horizontal flip
+	false
 };
 
 BgmapSpriteROMSpec PROGRESS_BAR_SPRITE =
@@ -122,11 +128,20 @@ EntityROMSpec PROGRESS_BAR_EN =
 	// class allocator
 	__TYPE(Entity),
 
+	// children
+	NULL,
+
 	// behaviors 
+	NULL,
+
+	// extra info
 	NULL,
 
 	// sprites
 	(SpriteSpec**)PROGRESS_BAR_SPRITES,
+
+	// use z displacement in projection
+	false,
 
 	// collision shapes
 	(ShapeSpec*)NULL,
@@ -136,7 +151,7 @@ EntityROMSpec PROGRESS_BAR_EN =
 	{0, 0, 0},
 
 	// gameworld's character's type
-	kNoType,
+	kTypeNone,
 
 	// physical specification
 	(PhysicalSpecification*)NULL,

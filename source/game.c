@@ -34,8 +34,8 @@
 
 int main(void)
 {
-    // start the game
-	Game_start(Game::getInstance(), GameState::safeCast(VideoPlayerState::getInstance()));
+   // start the game
+	Game::start(Game::getInstance(), GameState::safeCast(VideoPlayerState::getInstance()));
 
 	// end program
 	return true;

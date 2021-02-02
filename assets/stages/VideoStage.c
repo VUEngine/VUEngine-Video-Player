@@ -36,6 +36,7 @@
 extern EntitySpec PLAY_EN;
 extern EntitySpec PROGRESS_BAR_EN;
 extern EntitySpec VIDEO_EN;
+extern FontSpec NUMBER_FONT;
 
 
 //---------------------------------------------------------------------------------------------------------
@@ -72,6 +73,19 @@ StageROMSpec VIDEO_ST =
 {
 	// allocator
 	__TYPE(Stage),
+
+    // Timer config
+    {
+        __TIMER_100US,
+        10,
+        kMS,
+    },
+
+    // Sound config
+    {
+        __DEFAULT_PCM_HZ,
+        0
+    },
 
 	// level
 	{

@@ -72,7 +72,7 @@ void VideoPlayerState::enter(void* owner __attribute__ ((unused)))
 	Base::enter(this, owner);
 
 	// disable user input
-    Game::disableKeypad(Game::getInstance());
+	Game::disableKeypad(Game::getInstance());
 
 	// load stage
 	GameState::loadStage(GameState::safeCast(this), (StageSpec*)&VIDEO_ST, NULL, true);

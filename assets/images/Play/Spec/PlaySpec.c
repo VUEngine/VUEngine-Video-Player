@@ -136,6 +136,12 @@ TextureROMSpec PLAY_TX =
 
 	// recyclable
 	true,
+
+	// vertical flip
+	false,
+
+	// horizontal flip
+	false
 };
 
 BgmapSpriteROMSpec PLAY_SPRITE =
@@ -177,11 +183,20 @@ AnimatedEntityROMSpec PLAY_EN =
 		// class allocator
 		__TYPE(AnimatedEntity),
 
+		// children
+		NULL,
+
 		// behaviors 
+		NULL,
+
+		// extra info
 		NULL,
 
 		// sprites
 		(SpriteSpec**)PLAY_SPRITES,
+
+		// use z displacement in projection
+		false,
 
 		// collision shapes
 		(ShapeSpec*)NULL,
