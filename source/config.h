@@ -7,6 +7,13 @@
 
 
 //---------------------------------------------------------------------------------------------------------
+//												PLUGINS
+//---------------------------------------------------------------------------------------------------------
+
+#include "pluginsConfig.h"
+
+
+//---------------------------------------------------------------------------------------------------------
 //											COMMUNICATIONS
 //---------------------------------------------------------------------------------------------------------
 
@@ -191,7 +198,7 @@
 #define __MAX_ANIMATION_FUNCTION_NAME_LENGTH		16
 
 // maximum number of frames per animation function
-#define __MAX_FRAMES_PER_ANIMATION_FUNCTION			1000
+#define __MAX_FRAMES_PER_ANIMATION_FUNCTION			944
 
 // maximum number of animation functions per description
 #define __MAX_ANIMATION_FUNCTIONS					32
