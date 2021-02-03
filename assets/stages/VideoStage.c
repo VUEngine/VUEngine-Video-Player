@@ -281,7 +281,7 @@ StageROMSpec VIDEO_ST =
         },
 
         // children
-        VIDEO_ST_CHILDREN,
+        (PositionedEntity*)VIDEO_ST_CHILDREN,
     },
 
 	// post processing effects

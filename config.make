@@ -3,7 +3,7 @@
 ###########################################################################################################
 
 # VUEngine based plugins that the project uses
-PLUGINS 						= vuengine/other/I18n
+PLUGINS 						= 
 
 # Compiler's output
 COMPILER_OUTPUT					= c

@@ -1,3 +1,22 @@
 {
-	"folders": {}
+	"folders": {
+		"Play": {
+			"name": "Play",
+			"template": "entityStacked"
+		},
+		"NumberFont": {
+			"template": "font"
+		},
+		"ProgressBar": {
+			"template": "entity"
+		},
+		"Video/Left": {
+			"name": "VideoL",
+			"template": "entityStacked"
+		},
+		"Video/Right": {
+			"name": "VideoR",
+			"template": "entityStacked"
+		}
+	}
 }

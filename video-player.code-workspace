@@ -1,7 +1,7 @@
 {
 	"folders": [
 		{
-            "name": "Video Player",
+			"name": "Video Player",
 			"path": "."
 		},
 		{
@@ -13,11 +13,6 @@
 			"path": "../../vuengine/plugins"
 		}
 	],
-	"extensions": {
-        "recommendations": [
-			"vuengine.vuengine-studio"
-		]
-	},
 	"settings": {
 		"C_Cpp.autoAddFileAssociations": false,
 		"editor.insertSpaces": false

@@ -107,56 +107,48 @@
 		"cleanUp": false,
 		"pools": [
 			{
-				"objects": 60,
-				"size": 12
+				"size": 16,
+				"objects": 450
 			},
 			{
-				"objects": 400,
-				"size": 16
+				"size": 20,
+				"objects": 700
 			},
 			{
-				"objects": 280,
-				"size": 20
+				"size": 28,
+				"objects": 480
 			},
 			{
-				"objects": 830,
-				"size": 24
+				"size": 40,
+				"objects": 30
 			},
 			{
-				"objects": 140,
-				"size": 28
+				"size": 68,
+				"objects": 60
 			},
 			{
-				"objects": 70,
-				"size": 32
+				"size": 80,
+				"objects": 50
 			},
 			{
-				"objects": 70,
-				"size": 36
+				"size": 108,
+				"objects": 40
 			},
 			{
-				"objects": 65,
-				"size": 60
+				"size": 116,
+				"objects": 40
 			},
 			{
-				"objects": 60,
-				"size": 96
+				"size": 140,
+				"objects": 10
 			},
 			{
-				"objects": 35,
-				"size": 116
+				"size": 152,
+				"objects": 10
 			},
 			{
-				"objects": 16,
-				"size": 152
-			},
-			{
-				"objects": 5,
-				"size": 180
-			},
-			{
-				"objects": 9,
-				"size": 320
+				"size": 164,
+				"objects": 1
 			}
 		],
 		"warningThreshold": 85
