@@ -1,6 +1,3 @@
-
-//{{BLOCK(NumberFont)
-
 //======================================================================
 //
 //	NumberFont, 112x8@2, 
@@ -12,7 +9,7 @@
 //
 //======================================================================
 
-const unsigned int NumberFontTiles[56] __attribute__((aligned(4)))=
+const uint32 NumberFontTiles[56] __attribute__((aligned(4)))=
 {
 	0x00000000,0x00000000,0x00000000,0x00000000,0x1F401540,0x17D01F50,0x07D007D0,0x00000550,
 	0x5FD41550,0x7DF47DF4,0x5FD47DF4,0x00001550,0x1F501540,0x1F501FD0,0x1F401F40,0x00001540,
@@ -22,5 +19,3 @@ const unsigned int NumberFontTiles[56] __attribute__((aligned(4)))=
 	0x5FD41550,0x5FD47DF4,0x5FD47DF4,0x00001550,0x5FD41550,0x7FD47DF4,0x5FD47D50,0x00001550,
 	0xFFFFFFFF,0xFFFFFFFF,0xFFFFFFFF,0xFFFFFFFF,0x00FF00FF,0x00FF00FF,0x00FF00FF,0x00FF00FF,
 };
-
-//}}BLOCK(NumberFont)
