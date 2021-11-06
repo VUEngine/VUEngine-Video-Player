@@ -40,7 +40,7 @@ extern BYTE ProgressBarMap[];
 //												DEFINITIONS
 //---------------------------------------------------------------------------------------------------------
 
-CharSetROMSpec PROGRESS_BAR_CH =
+CharSetROMSpec ProgressBarCharset =
 {
 	// number of chars, depending on allocation type:
 	// __ANIMATED_SINGLE*, __ANIMATED_SHARED*: number of chars of a single animation frame (cols * rows)
@@ -55,10 +55,10 @@ CharSetROMSpec PROGRESS_BAR_CH =
 	ProgressBarTiles,
 };
 
-TextureROMSpec PROGRESS_BAR_TX =
+TextureROMSpec ProgressBarTexture =
 {
 	// charset spec
-	(CharSetSpec*)&PROGRESS_BAR_CH,
+	(CharSetSpec*)&ProgressBarCharset,
 
 	// bgmap spec
 	ProgressBarMap,
@@ -90,14 +90,14 @@ TextureROMSpec PROGRESS_BAR_TX =
 	false
 };
 
-BgmapSpriteROMSpec PROGRESS_BAR_SPRITE =
+BgmapSpriteROMSpec ProgressBarSprite =
 {
 	{
 		// sprite's type
 		__TYPE(BgmapSprite),
 
 		// texture spec
-		(TextureSpec*)&PROGRESS_BAR_TX,
+		(TextureSpec*)&ProgressBarTexture,
 
 		// transparent (__TRANSPARENCY_NONE, __TRANSPARENCY_EVEN or __TRANSPARENCY_ODD)
 		__TRANSPARENCY_NONE,
@@ -117,13 +117,13 @@ BgmapSpriteROMSpec PROGRESS_BAR_SPRITE =
 	__WORLD_ON,
 };
 
-BgmapSpriteROMSpec* const PROGRESS_BAR_SPRITES[] =
+BgmapSpriteROMSpec* const ProgressBarSprites[] =
 {
-	&PROGRESS_BAR_SPRITE,
+	&ProgressBarSprite,
 	NULL
 };
 
-EntityROMSpec PROGRESS_BAR_EN =
+EntityROMSpec ProgressBarEntity =
 {
 	// class allocator
 	__TYPE(Entity),
@@ -138,7 +138,7 @@ EntityROMSpec PROGRESS_BAR_EN =
 	NULL,
 
 	// sprites
-	(SpriteSpec**)PROGRESS_BAR_SPRITES,
+	(SpriteSpec**)ProgressBarSprites,
 
 	// use z displacement in projection
 	false,

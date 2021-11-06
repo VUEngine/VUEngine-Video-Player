@@ -39,7 +39,7 @@
 // 												DECLARATIONS
 //---------------------------------------------------------------------------------------------------------
 
-extern StageROMSpec VIDEO_ST;
+extern StageROMSpec VideoStage;
 
 
 //---------------------------------------------------------------------------------------------------------
@@ -75,7 +75,7 @@ void VideoPlayerState::enter(void* owner __attribute__ ((unused)))
 	Game::disableKeypad(Game::getInstance());
 
 	// load stage
-	GameState::loadStage(GameState::safeCast(this), (StageSpec*)&VIDEO_ST, NULL, true);
+	GameState::loadStage(GameState::safeCast(this), (StageSpec*)&VideoStage, NULL, true);
 
 	// get entities from stage
 	this->videoEntity = AnimatedEntity::safeCast(Container::getChildByName(

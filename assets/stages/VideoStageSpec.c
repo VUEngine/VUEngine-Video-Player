@@ -33,21 +33,21 @@
 // 												DECLARATIONS
 //---------------------------------------------------------------------------------------------------------
 
-extern EntitySpec PLAY_EN;
-extern EntitySpec PROGRESS_BAR_EN;
-extern EntitySpec VIDEO_EN;
-extern FontSpec NUMBER_FONT;
+extern EntitySpec PlayEntity;
+extern EntitySpec ProgressBarEntity;
+extern EntitySpec VideoEntity;
+extern FontSpec NumberFont;
 
 
 //---------------------------------------------------------------------------------------------------------
 // 												ASSETS
 //---------------------------------------------------------------------------------------------------------
 
-PositionedEntityROMSpec VIDEO_ST_CHILDREN[] =
+PositionedEntityROMSpec VideoStageChildren[] =
 {
-	{&PLAY_EN,			{ 12, 208, 0, 0}, 0, "PlayEnt", NULL, NULL, true},
-	{&PROGRESS_BAR_EN,	{180, 208, 0, 0}, 0, "ProgrEnt", NULL, NULL, true},
-	{&VIDEO_EN,			{192, 112, 0, 0}, 1, "VideoEnt", NULL, NULL, true},
+	{&PlayEntity,			{ 12, 208, 0, 0}, 0, "PlayEnt", NULL, NULL, true},
+	{&ProgressBarEntity,	{180, 208, 0, 0}, 0, "ProgrEnt", NULL, NULL, true},
+	{&VideoEntity,			{192, 112, 0, 0}, 1, "VideoEnt", NULL, NULL, true},
 
 	{NULL,{0,0,0,0}, 0, NULL, NULL, NULL, false},
 };
@@ -57,9 +57,9 @@ PositionedEntityROMSpec VIDEO_ST_CHILDREN[] =
 // 											PRELOAD LISTS
 //---------------------------------------------------------------------------------------------------------
 
-FontROMSpec* const VIDEO_ST_FONTS[] =
+FontROMSpec* const VideoStageFonts[] =
 {
-	&NUMBER_FONT,
+	&NumberFont,
 
 	NULL
 };
@@ -69,7 +69,7 @@ FontROMSpec* const VIDEO_ST_FONTS[] =
 // 											STAGE DEFINITION
 //---------------------------------------------------------------------------------------------------------
 
-StageROMSpec VIDEO_ST =
+StageROMSpec VideoStage =
 {
 	// allocator
 	__TYPE(Stage),
@@ -260,7 +260,7 @@ StageROMSpec VIDEO_ST =
     // assets
     {
         // fonts to preload
-        (FontSpec**)VIDEO_ST_FONTS,
+        (FontSpec**)VideoStageFonts,
 
         // char sets to preload
         (CharSetSpec**)NULL,
@@ -281,7 +281,7 @@ StageROMSpec VIDEO_ST =
         },
 
         // children
-        (PositionedEntity*)VIDEO_ST_CHILDREN,
+        (PositionedEntity*)VideoStageChildren,
     },
 
 	// post processing effects

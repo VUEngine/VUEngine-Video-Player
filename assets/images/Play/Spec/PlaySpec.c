@@ -40,7 +40,7 @@ extern BYTE PlayMap[];
 //												DEFINITIONS
 //---------------------------------------------------------------------------------------------------------
 
-AnimationFunctionROMSpec PLAY_PLAY_ANIM =
+AnimationFunctionROMSpec PlayPlayAnimation =
 {
 	// number of frames of this animation function
 	1,
@@ -61,7 +61,7 @@ AnimationFunctionROMSpec PLAY_PLAY_ANIM =
 	"Play",
 };
 
-AnimationFunctionROMSpec PLAY_PAUSE_ANIM =
+AnimationFunctionROMSpec PlayPauseAnimation =
 {
 	// number of frames of this animation function
 	1,
@@ -83,18 +83,18 @@ AnimationFunctionROMSpec PLAY_PAUSE_ANIM =
 };
 
 // an animation spec
-AnimationDescriptionROMSpec PLAY_ANIM =
+AnimationDescriptionROMSpec PlayAnimation =
 {
 	// animation functions
 	{
-		(AnimationFunction*)&PLAY_PLAY_ANIM,
-		(AnimationFunction*)&PLAY_PAUSE_ANIM,
+		(AnimationFunction*)&PlayPlayAnimation,
+		(AnimationFunction*)&PlayPauseAnimation,
 
 		NULL,
 	}
 };
 
-CharSetROMSpec PLAY_CH =
+CharSetROMSpec PlayCharset =
 {
 	// number of chars, depending on allocation type:
 	// __ANIMATED_SINGLE*, __ANIMATED_SHARED*: number of chars of a single animation frame (cols * rows)
@@ -109,10 +109,10 @@ CharSetROMSpec PLAY_CH =
 	PlayTiles,
 };
 
-TextureROMSpec PLAY_TX =
+TextureROMSpec PlayTexture =
 {
 	// charset spec
-	(CharSetSpec*)&PLAY_CH,
+	(CharSetSpec*)&PlayCharset,
 
 	// bgmap spec
 	PlayMap,
@@ -144,14 +144,14 @@ TextureROMSpec PLAY_TX =
 	false
 };
 
-BgmapSpriteROMSpec PLAY_SPRITE =
+BgmapSpriteROMSpec PlaySprite =
 {
 	{
 		// sprite's type
 		__TYPE(BgmapAnimatedSprite),
 
 		// texture spec
-		(TextureSpec*)&PLAY_TX,
+		(TextureSpec*)&PlayTexture,
 
 		// transparent (__TRANSPARENCY_NONE, __TRANSPARENCY_EVEN or __TRANSPARENCY_ODD)
 		__TRANSPARENCY_NONE,
@@ -171,13 +171,13 @@ BgmapSpriteROMSpec PLAY_SPRITE =
 	__WORLD_ON,
 };
 
-BgmapSpriteROMSpec* const PLAY_SPRITES[] =
+BgmapSpriteROMSpec* const PlaySprites[] =
 {
-	&PLAY_SPRITE,
+	&PlaySprite,
 	NULL
 };
 
-AnimatedEntityROMSpec PLAY_EN =
+AnimatedEntityROMSpec PlayEntity =
 {
 	{
 		// class allocator
@@ -193,7 +193,7 @@ AnimatedEntityROMSpec PLAY_EN =
 		NULL,
 
 		// sprites
-		(SpriteSpec**)PLAY_SPRITES,
+		(SpriteSpec**)PlaySprites,
 
 		// use z displacement in projection
 		false,
@@ -213,7 +213,7 @@ AnimatedEntityROMSpec PLAY_EN =
 	},
 
 	// pointer to the animation spec for the item
-	(AnimationDescription*)&PLAY_ANIM,
+	(AnimationDescription*)&PlayAnimation,
 
 	// initial animation
 	"Play"

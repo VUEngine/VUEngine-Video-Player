@@ -4,24 +4,24 @@
 
 
 //---------------------------------------------------------------------------------------------------------
-//												INCLUDES
+//                                                INCLUDES
 //---------------------------------------------------------------------------------------------------------
 
 #include <Printing.h>
 
 
 //---------------------------------------------------------------------------------------------------------
-//												DECLARATIONS
+//                                              DECLARATIONS
 //---------------------------------------------------------------------------------------------------------
 
 extern BYTE NumberFontTiles[];
 
 
 //---------------------------------------------------------------------------------------------------------
-//												DEFINITIONS
+//                                               DEFINITIONS
 //---------------------------------------------------------------------------------------------------------
 
-CharSetROMSpec NUMBER_FONT_CH =
+CharSetROMSpec NumberFontCharSet =
 {
 	// number of chars
 	14,
@@ -33,10 +33,10 @@ CharSetROMSpec NUMBER_FONT_CH =
 	NumberFontTiles,
 };
 
-FontROMSpec NUMBER_FONT =
+FontROMSpec NumberFont =
 {
 	// font charset spec pointer
-	(CharSetSpec*)&NUMBER_FONT_CH,
+	(CharSetSpec*)&NumberFontCharSet,
 
 	// character number at which the font starts, allows you to skip the control characters for example
 	46,

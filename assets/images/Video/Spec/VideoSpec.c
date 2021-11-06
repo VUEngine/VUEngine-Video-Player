@@ -42,7 +42,7 @@ extern BYTE VideoRMap[];
 //												DEFINITIONS
 //---------------------------------------------------------------------------------------------------------
 
-AnimationFunctionROMSpec VIDEO_HI_COLOR_ANIM =
+AnimationFunctionROMSpec VideoHiColorAnimation =
 {
 	// number of frames of this animation function
 	944,
@@ -96,7 +96,7 @@ AnimationFunctionROMSpec VIDEO_HI_COLOR_ANIM =
 	"HiColor",
 };
 
-AnimationFunctionROMSpec VIDEO_4_COLOR_ANIM =
+AnimationFunctionROMSpec Video4ColorAnimation =
 {
 	// number of frames of this animation function
 	944,
@@ -151,18 +151,18 @@ AnimationFunctionROMSpec VIDEO_4_COLOR_ANIM =
 };
 
 // an animation spec
-AnimationDescriptionROMSpec VIDEO_ANIM =
+AnimationDescriptionROMSpec VideoAnimation =
 {
 	// animation functions
 	{
-		(AnimationFunction*)&VIDEO_HI_COLOR_ANIM,
-		(AnimationFunction*)&VIDEO_4_COLOR_ANIM,
+		(AnimationFunction*)&VideoHiColorAnimation,
+		(AnimationFunction*)&Video4ColorAnimation,
 
 		NULL,
 	}
 };
 
-CharSetROMSpec VIDEO_L_CH =
+CharSetROMSpec VideoLCharset =
 {
 	// number of chars, depending on allocation type:
 	// __ANIMATED_SINGLE*, __ANIMATED_SHARED*: number of chars of a single animation frame (cols * rows)
@@ -177,10 +177,10 @@ CharSetROMSpec VIDEO_L_CH =
 	VideoLTiles,
 };
 
-TextureROMSpec VIDEO_L_TX =
+TextureROMSpec VideoLTexture =
 {
 	// charset spec
-	(CharSetSpec*)&VIDEO_L_CH,
+	(CharSetSpec*)&VideoLCharset,
 
 	// bgmap spec
 	VideoLMap,
@@ -212,14 +212,14 @@ TextureROMSpec VIDEO_L_TX =
 	false
 };
 
-BgmapSpriteROMSpec VIDEO_L_SPRITE =
+BgmapSpriteROMSpec VideoLSprite =
 {
 	{
 		// sprite's type
 		__TYPE(BgmapAnimatedSprite),
 
 		// texture spec
-		(TextureSpec*)&VIDEO_L_TX,
+		(TextureSpec*)&VideoLTexture,
 
 		// transparent (__TRANSPARENCY_NONE, __TRANSPARENCY_EVEN or __TRANSPARENCY_ODD)
 		__TRANSPARENCY_NONE,
@@ -239,7 +239,7 @@ BgmapSpriteROMSpec VIDEO_L_SPRITE =
 	__WORLD_LON,
 };
 
-CharSetROMSpec VIDEO_R_CH =
+CharSetROMSpec VideoRCharset =
 {
 	// number of chars, depending on allocation type:
 	// __ANIMATED_SINGLE*, __ANIMATED_SHARED*: number of chars of a single animation frame (cols * rows)
@@ -254,10 +254,10 @@ CharSetROMSpec VIDEO_R_CH =
 	VideoRTiles,
 };
 
-TextureROMSpec VIDEO_R_TX =
+TextureROMSpec VideoRTexture =
 {
 	// charset spec
-	(CharSetSpec*)&VIDEO_R_CH,
+	(CharSetSpec*)&VideoRCharset,
 
 	// bgmap spec
 	VideoRMap,
@@ -289,14 +289,14 @@ TextureROMSpec VIDEO_R_TX =
 	false
 };
 
-BgmapSpriteROMSpec VIDEO_R_SPRITE =
+BgmapSpriteROMSpec VideoRSprite =
 {
 	{
 		// sprite's type
 		__TYPE(BgmapAnimatedSprite),
 
 		// texture spec
-		(TextureSpec*)&VIDEO_R_TX,
+		(TextureSpec*)&VideoRTexture,
 
 		// transparent (__TRANSPARENCY_NONE, __TRANSPARENCY_EVEN or __TRANSPARENCY_ODD)
 		__TRANSPARENCY_NONE,
@@ -316,14 +316,14 @@ BgmapSpriteROMSpec VIDEO_R_SPRITE =
 	__WORLD_RON,
 };
 
-BgmapSpriteROMSpec* const VIDEO_SPRITES[] =
+BgmapSpriteROMSpec* const VideoSprites[] =
 {
-	&VIDEO_L_SPRITE,
-	&VIDEO_R_SPRITE,
+	&VideoLSprite,
+	&VideoRSprite,
 	NULL
 };
 
-AnimatedEntityROMSpec VIDEO_EN =
+AnimatedEntityROMSpec VideoEntity =
 {
 	{
 		// class allocator
@@ -339,7 +339,7 @@ AnimatedEntityROMSpec VIDEO_EN =
 		NULL,
 
 		// sprites
-		(SpriteSpec**)VIDEO_SPRITES,
+		(SpriteSpec**)VideoSprites,
 
 		// use z displacement in projection
 		false,
@@ -359,7 +359,7 @@ AnimatedEntityROMSpec VIDEO_EN =
 	},
 
 	// pointer to the animation spec for the item
-	(AnimationDescription*)&VIDEO_ANIM,
+	(AnimationDescription*)&VideoAnimation,
 
 	// initial animation
 	"HiColor"
