@@ -14,7 +14,7 @@
 //                                              DECLARATIONS
 //---------------------------------------------------------------------------------------------------------
 
-extern BYTE NumberFontTiles[];
+extern uint32 NumberFontTiles[];
 
 
 //---------------------------------------------------------------------------------------------------------
@@ -31,6 +31,9 @@ CharSetROMSpec NumberFontCharSet =
 
 	// char spec
 	NumberFontTiles,
+
+	// pointer to the frames offsets
+	NULL,
 };
 
 FontROMSpec NumberFont =

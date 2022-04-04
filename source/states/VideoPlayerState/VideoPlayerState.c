@@ -1,22 +1,10 @@
-/* VUEngine - Virtual Utopia Engine <http://vuengine.planetvb.com/>
- * A universal game engine for the Nintendo Virtual Boy
+/**
+ * VUEngine Video Player
  *
- * Copyright (C) 2007, 2018 by Jorge Eremiev <jorgech3@gmail.com> and Christian Radke <chris@vr32.de>
+ * © Christian Radke and Marten Reiß
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the "Software"), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to
- * the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all copies or substantial
- * portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
- * LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
- * NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
- * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * For the full copyright and license information, please view the LICENSE file
+ * that was distributed with this source code.
  */
 
 
@@ -75,7 +63,7 @@ void VideoPlayerState::enter(void* owner __attribute__ ((unused)))
 	Game::disableKeypad(Game::getInstance());
 
 	// load stage
-	GameState::loadStage(GameState::safeCast(this), (StageSpec*)&VideoStage, NULL, true);
+	GameState::loadStage(GameState::safeCast(this), (StageSpec*)&VideoStage, NULL, true, false);
 
 	// get entities from stage
 	this->videoEntity = AnimatedEntity::safeCast(Container::getChildByName(
@@ -274,33 +262,33 @@ void VideoPlayerState::printFrames()
 
 	if(currentFrame >= 100)
 	{
-		Printing::int(Printing::getInstance(), currentFrame, 44, 25, "Number");
+		Printing::int32(Printing::getInstance(), currentFrame, 44, 25, "Number");
 	}
 	else if(currentFrame >= 10)
 	{
 		Printing::text(Printing::getInstance(), "0", 44, 25, "Number");
-		Printing::int(Printing::getInstance(), currentFrame, 45, 25, "Number");
+		Printing::int32(Printing::getInstance(), currentFrame, 45, 25, "Number");
 	}
 	else
 	{
 		Printing::text(Printing::getInstance(), "00", 44, 25, "Number");
-		Printing::int(Printing::getInstance(), currentFrame, 46, 25, "Number");
+		Printing::int32(Printing::getInstance(), currentFrame, 46, 25, "Number");
 	}
 
 	if(this->numberOfFrames >= 100)
 	{
 		Printing::text(Printing::getInstance(), "/", 43, 26, "Number");
-		Printing::int(Printing::getInstance(), this->numberOfFrames, 44, 26, "Number");
+		Printing::int32(Printing::getInstance(), this->numberOfFrames, 44, 26, "Number");
 	}
 	else if(this->numberOfFrames >= 10)
 	{
 		Printing::text(Printing::getInstance(), "/0", 43, 26, "Number");
-		Printing::int(Printing::getInstance(), this->numberOfFrames, 45, 26, "Number");
+		Printing::int32(Printing::getInstance(), this->numberOfFrames, 45, 26, "Number");
 	}
 	else
 	{
 		Printing::text(Printing::getInstance(), "/00", 43, 26, "Number");
-		Printing::int(Printing::getInstance(), this->numberOfFrames, 46, 26, "Number");
+		Printing::int32(Printing::getInstance(), this->numberOfFrames, 46, 26, "Number");
 	}
 }
 

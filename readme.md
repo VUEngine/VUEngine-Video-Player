@@ -1,12 +1,12 @@
 # VUEngine Video Player
 
-Video Player made in VUEngine that demonstrates a 256 MBit HiColor FMV.
+25 FPS HiColor Full Motion Video of Super Mario 3D Land gameplay converted to the Virtual Boy. 
 
 ![](screenshot.png?raw=true)
 
-## LICENSE
+## License
 
-Copyright (C) 2007, 2018 by Jorge Eremiev <jorgech3@gmail.com> and Christian Radke <chris@vr32.de>
+© Marten Reiß and Christian Radke
 
 This software is licensed under the MIT License, which means you can basically do with it whatever you
 want as long as you include the original copyright and license notice in any copy of the software/source.
@@ -26,16 +26,9 @@ want as long as you include the original copyright and license notice in any cop
     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-## COMPILING
-
-Compile by loading this project in VBDE and starting the VBDE build system.
-
-## CREDITS
+## Credits
 
 - Marten Reiß (STEREO BOY)
   - Video conversion
 - Christian Radke (KR155E)
   - Programmer
-
-V810 is a trade mark of NEC. Virtual Boy is a trade mark of Nintendo.
-Jorge Eremiev and Christian Radke are in no way affiliated with either of these parties.
