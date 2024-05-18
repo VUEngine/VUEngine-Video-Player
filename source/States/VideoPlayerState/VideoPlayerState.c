@@ -72,11 +72,13 @@ void VideoPlayerState::enter(void* owner __attribute__ ((unused)))
 		"VideoEnt",
 		false
 	));
+
 	this->progressBarEntity = Entity::safeCast(Container::getChildByName(
 		Container::safeCast(VUEngine::getStage(VUEngine::getInstance())),
 		"ProgrEnt",
 		false
 	));
+	
 	this->playEntity = AnimatedEntity::safeCast(Container::getChildByName(
 		Container::safeCast(VUEngine::getStage(VUEngine::getInstance())),
 		"PlayEnt",

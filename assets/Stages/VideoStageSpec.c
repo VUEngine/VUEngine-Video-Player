@@ -33,9 +33,9 @@ extern FontSpec NumberFontSpec;
 
 PositionedEntityROMSpec VideoStageChildren[] =
 {
-	{&PlayEntity,			{ 12, 208, 0}, {0, 0, 0}, {1, 1, 1}, 0, "PlayEnt", NULL, NULL, true},
-	{&ProgressBarEntity,	{180, 208, 0}, {0, 0, 0}, {1, 1, 1}, 0, "ProgrEnt", NULL, NULL, true},
-	{&VideoEntity,			{192, 112, 0}, {0, 0, 0}, {1, 1, 1}, 1, "VideoEnt", NULL, NULL, true},
+	{&PlayEntity,			{-192 + 12, 112 - 16, 0}, {0, 0, 0}, {1, 1, 1}, 0, "PlayEnt", NULL, NULL, true},
+	{&ProgressBarEntity,	{0 - 8, 112 - 16, 0}, {0, 0, 0}, {1, 1, 1}, 0, "ProgrEnt", NULL, NULL, true},
+	{&VideoEntity,			{0, 0, 0}, {0, 0, 0}, {1, 1, 1}, 1, "VideoEnt", NULL, NULL, true},
 
 	{NULL, {0, 0, 0}, {0, 0, 0}, {1, 1, 1}, 0, NULL, NULL, NULL, false},
 };
