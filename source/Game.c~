@@ -1,0 +1,31 @@
+/**
+ * VUEngine Video Player
+ *
+ * © Christian Radke and Marten Reiß
+ *
+ * For the full copyright and license information, please view the LICENSE file
+ * that was distributed with this source code.
+ */
+
+
+//---------------------------------------------------------------------------------------------------------
+// 												INCLUDES
+//---------------------------------------------------------------------------------------------------------
+
+#include <Game.h>
+#include <VideoPlayerState.h>
+#include <VUEngine.h>
+
+
+//---------------------------------------------------------------------------------------------------------
+// 										  GAME'S MAIN LOOP
+//---------------------------------------------------------------------------------------------------------
+
+int main(void)
+{
+   // start the game
+	Game::start(Game::getInstance(), GameState::safeCast(VideoPlayerState::getInstance()));
+	VUEngine::start(VUEngine::getInstance(), GameState::safeCast(VideoPlayerState::getInstance()));
+	// end program
+	return true;
+}

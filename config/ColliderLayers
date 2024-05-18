@@ -1,0 +1,12 @@
+{
+    "layers": [
+        "Dangers",
+        "Particles",
+        "Pong Ball",
+        "Pong Paddle",
+        "Pong Paddle Helper",
+        "Pong Walls",
+        "Punk",
+        "Solid"
+    ]
+}
