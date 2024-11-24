@@ -64,7 +64,7 @@ void VideoPlayerState::enter(void* owner __attribute__ ((unused)))
 	VUEngine::disableKeypad(VUEngine::getInstance());
 
 	// load stage
-	GameState::loadStage(GameState::safeCast(this), (StageSpec*)&VideoStage, NULL);
+	GameState::configureStage(GameState::safeCast(this), (StageSpec*)&VideoStage, NULL);
 
 	// get entities from stage
 	this->videoEntity = AnimatedEntity::safeCast(Container::getChildByName(
