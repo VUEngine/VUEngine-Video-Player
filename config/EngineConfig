@@ -1,4 +1,5 @@
 {
+    "_version": "0.6.0",
     "affine": {
         "maxRowsPerCall": 16,
         "maxScale": 2
@@ -129,6 +130,7 @@
     },
     "sprite": {
         "hackBgmapSpriteHeight": true,
+        "spritesRotateIn3D": true,
         "totalLayers": 32,
         "totalObjects": 1024
     },
@@ -148,7 +150,10 @@
         }
     },
     "wireframes": {
+        "frustumExtensionPower": 0,
         "interlacedThreshold": 2048,
-        "sort": true
+        "lineShrinkingPadding": 0,
+        "sort": true,
+        "verticalLineOptimization": false
     }
 }
