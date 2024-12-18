@@ -1,4 +1,4 @@
-/**
+/*
  * VUEngine Video Player
  *
  * © Christian Radke and Marten Reiß

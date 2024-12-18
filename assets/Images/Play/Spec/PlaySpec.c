@@ -1,4 +1,4 @@
-/**
+/*
  * VUEngine Video Player
  *
  * © Christian Radke and Marten Reiß
@@ -8,26 +8,26 @@
  */
 
 
-//---------------------------------------------------------------------------------------------------------
-//												INCLUDES
-//---------------------------------------------------------------------------------------------------------
+//=========================================================================================================
+// INCLUDES
+//=========================================================================================================
 
 #include <AnimatedEntity.h>
 #include <BgmapAnimatedSprite.h>
 
 
-//---------------------------------------------------------------------------------------------------------
-//												DECLARATIONS
-//---------------------------------------------------------------------------------------------------------
+//=========================================================================================================
+// DECLARATIONS
+//=========================================================================================================
 
 extern uint32 PlayTiles[];
 extern uint32 PlayTilesFrameOffsets[];
 extern uint16 PlayMap[];
 
 
-//---------------------------------------------------------------------------------------------------------
-//												DEFINITIONS
-//---------------------------------------------------------------------------------------------------------
+//=========================================================================================================
+// DEFINITIONS
+//=========================================================================================================
 
 AnimationFunctionROMSpec PlayPlayAnimation =
 {
@@ -135,8 +135,14 @@ TextureROMSpec PlayTexture =
 BgmapSpriteROMSpec PlaySprite =
 {
 	{
-		// sprite's type
-		__TYPE(BgmapAnimatedSprite),
+		// Sprite
+		{
+		    // Allocator
+		    __TYPE(BgmapAnimatedSprite),
+
+		    // Component type
+		    kSpriteComponent
+		},
 
 		// texture spec
 		(TextureSpec*)&PlayTexture,
@@ -165,6 +171,18 @@ BgmapSpriteROMSpec* const PlaySprites[] =
 	NULL
 };
 
+
+
+ComponentSpec** PlayEntityComponentSpecs[] = 
+{
+    @COMPONENTS@
+};
+
+ComponentSpec** PlayEntityComponentSpecs[] = 
+{
+	@COMPONENTS:PlayEntity@
+};
+
 AnimatedEntityROMSpec PlayEntity =
 {
 	{
@@ -174,23 +192,19 @@ AnimatedEntityROMSpec PlayEntity =
 		// children
 		NULL,
 
-		// behaviors 
-		NULL,
+		@BEHAVIORS:NULL@,
 
 		// extra info
 		NULL,
 
-		// sprites
-		(SpriteSpec**)PlaySprites,
+		@SPRITES:(SpriteSpec**)PlaySprites@,
 
 		// use z displacement in projection
 		false,
 
-		// wireframes
-		NULL,
+		@WIREFRAMES:NULL@,
 
-		// colliders
-		NULL,
+		@COLLIDERS:NULL@,
 
 		// size
 		// if 0, width and height will be inferred from the first sprite's texture's size
@@ -199,8 +213,7 @@ AnimatedEntityROMSpec PlayEntity =
 		// gameworld's character's type
 		0,
 
-		// physical specification
-		NULL,
+		@PHYSICS:NULL@,
 	},
 
 	// pointer to the animation spec for the item

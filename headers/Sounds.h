@@ -23,7 +23,7 @@ extern SoundSpec ChangeSelection3SoundSpec;
 extern SoundSpec ChangeSelection4SoundSpec;
 extern SoundSpec EngineSoundSpec;
 extern SoundSpec ExplosionSoundSpec;
-extern SoundSpec GameOverSoundSpec;
+extern SoundSpec GameOverSongSoundSpec;
 extern SoundSpec HitPaddleSoundSpec;
 extern SoundSpec KilledSoundSpec;
 extern SoundSpec NoFearForTheFutureSoundSpec;

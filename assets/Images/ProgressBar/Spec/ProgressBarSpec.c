@@ -1,4 +1,4 @@
-/**
+/*
  * VUEngine Video Player
  *
  * © Christian Radke and Marten Reiß
@@ -8,25 +8,25 @@
  */
 
 
-//---------------------------------------------------------------------------------------------------------
-//												INCLUDES
-//---------------------------------------------------------------------------------------------------------
+//=========================================================================================================
+// INCLUDES
+//=========================================================================================================
 
 #include <Entity.h>
 #include <BgmapSprite.h>
 
 
-//---------------------------------------------------------------------------------------------------------
-//												DECLARATIONS
-//---------------------------------------------------------------------------------------------------------
+//=========================================================================================================
+// DECLARATIONS
+//=========================================================================================================
 
 extern uint32 ProgressBarTiles[];
 extern uint16 ProgressBarMap[];
 
 
-//---------------------------------------------------------------------------------------------------------
-//												DEFINITIONS
-//---------------------------------------------------------------------------------------------------------
+//=========================================================================================================
+// DEFINITIONS
+//=========================================================================================================
 
 CharSetROMSpec ProgressBarCharset =
 {
@@ -84,8 +84,14 @@ TextureROMSpec ProgressBarTexture =
 BgmapSpriteROMSpec ProgressBarSprite =
 {
 	{
-		// sprite's type
-		__TYPE(BgmapSprite),
+		// Sprite
+		{
+		    // Allocator
+		    __TYPE(BgmapSprite),
+
+		    // Component type
+		    kSpriteComponent
+		},
 
 		// texture spec
 		(TextureSpec*)&ProgressBarTexture,
@@ -114,6 +120,18 @@ BgmapSpriteROMSpec* const ProgressBarSprites[] =
 	NULL
 };
 
+
+
+ComponentSpec** ProgressBarEntityComponentSpecs[] = 
+{
+    @COMPONENTS@
+};
+
+ComponentSpec** ProgressBarEntityComponentSpecs[] = 
+{
+	@COMPONENTS:ProgressBarEntity@
+};
+
 EntityROMSpec ProgressBarEntity =
 {
 	// class allocator
@@ -122,23 +140,19 @@ EntityROMSpec ProgressBarEntity =
 	// children
 	NULL,
 
-	// behaviors 
-	NULL,
+	@BEHAVIORS:NULL@,
 
 	// extra info
 	NULL,
 
-	// sprites
-	(SpriteSpec**)ProgressBarSprites,
+	@SPRITES:(SpriteSpec**)ProgressBarSprites@,
 
 	// use z displacement in projection
 	false,
 
-	// wireframes
-	NULL,
+	@WIREFRAMES:NULL@,
 
-	// colliders
-	NULL,
+	@COLLIDERS:NULL@,
 
 	// size
 	// if 0, width and height will be inferred from the first sprite's texture's size
@@ -147,6 +161,5 @@ EntityROMSpec ProgressBarEntity =
 	// gameworld's character's type
 	kTypeNone,
 
-	// physical specification
-	NULL,
+	@PHYSICS:NULL@,
 };

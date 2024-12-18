@@ -1,4 +1,4 @@
-/**
+/*
  * VUEngine Video Player
  *
  * © Christian Radke and Marten Reiß
@@ -41,9 +41,9 @@ PositionedEntityROMSpec VideoStageChildren[] =
 };
 
 
-//---------------------------------------------------------------------------------------------------------
-// 											PRELOAD LISTS
-//---------------------------------------------------------------------------------------------------------
+//=========================================================================================================
+// ASSETS LISTS
+//=========================================================================================================
 
 FontROMSpec* const VideoStageFonts[] =
 {
@@ -78,7 +78,7 @@ StageROMSpec VideoStage =
 	// level
 	{
         // size
-        {
+   	{
             // x
             __SCREEN_WIDTH,
             // y
@@ -88,7 +88,7 @@ StageROMSpec VideoStage =
         },
 
 		// camera's initial position inside the game world
-        {
+   	{
             // x
             0,
             // y
@@ -139,14 +139,14 @@ StageROMSpec VideoStage =
 		16,
 
         // colors config
-        {
+   	{
             // background color
             __COLOR_BLACK,
 
             // brightness
             // these values times the repeat values specified in the column table (max. 16) make the final
             // brightness values on the respective regions of the screen. maximum brightness is 128.
-            {
+   	{
                 // dark red
                 __BRIGHTNESS_DARK_RED,
                 // medium red
@@ -160,27 +160,27 @@ StageROMSpec VideoStage =
         },
 
         // palettes' config
-        {
-        	{
-        	    // bgmap palette 0
+   	{
+    	{
+    	    // bgmap palette 0
                 __BGMAP_PALETTE_0,
-        	    // bgmap palette 1
+    	    // bgmap palette 1
                 __BGMAP_PALETTE_1,
                 // bgmap palette 2
                 __BGMAP_PALETTE_2,
-        	    // bgmap palette 3
+    	    // bgmap palette 3
                 __BGMAP_PALETTE_3,
-        	},
-        	{
-        	    // object palette 0
+    	},
+    	{
+    	    // object palette 0
                 __OBJECT_PALETTE_0,
-        	    // object palette 1
+    	    // object palette 1
                 __OBJECT_PALETTE_1,
-        	    // object palette 2
+    	    // object palette 2
                 __OBJECT_PALETTE_2,
-        	    // object palette 3
+    	    // object palette 3
                 __OBJECT_PALETTE_3,
-        	},
+    	},
         },
 
         // bgmap segments configuration
@@ -189,30 +189,30 @@ StageROMSpec VideoStage =
 
 		// object segments sizes (up to 1024 in total)
         // can impact performance, make sure to configure only as large as maximally needed
-        {
+   	{
             // __spt0
-        	0,
+    	0,
             // __spt1
-        	0,
+    	0,
             // __spt2
-        	0,
+    	0,
             // __spt3
-        	0,
+    	0,
         },
 
         // object segments z coordinates
         // Note that each SPT's z coordinate much be larger than or equal to the previous one's,
         // since the VIP renders OBJ Worlds in reverse order (__SPT3 to __SPT0)
-        {
+   	{
             // __spt0
-        	__F_TO_FIX10_6(0),
-    		__F_TO_FIX10_6(0),
-    		__F_TO_FIX10_6(0),
-    		__F_TO_FIX10_6(0),
+    	__F_TO_FIX10_6(0),
+		__F_TO_FIX10_6(0),
+		__F_TO_FIX10_6(0),
+		__F_TO_FIX10_6(0),
         },
 
         // optical configuration values
-        {
+   	{
 			// maximum view distance's power
 			__MAXIMUM_X_VIEW_DISTANCE,
 			__MAXIMUM_Y_VIEW_DISTANCE,
@@ -232,10 +232,10 @@ StageROMSpec VideoStage =
     // physics
     {
         // gravity
-        {
-    	    __F_TO_FIX10_6(0),
-    	    __F_TO_FIX10_6(0),
-    	    __F_TO_FIX10_6(0),
+   	{
+	    __F_TO_FIX10_6(0),
+	    __F_TO_FIX10_6(0),
+	    __F_TO_FIX10_6(0),
         },
 
         // friction
@@ -260,8 +260,8 @@ StageROMSpec VideoStage =
     // entities
     {
         // ui
-        {
-        	NULL,
+   	{
+    	NULL,
             NULL,
         },
 

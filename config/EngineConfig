@@ -51,31 +51,31 @@
     "memoryPools": {
         "cleanUp": false,
         "pools": [
-            {
+       	{
                 "objects": 200,
                 "size": 16
             },
-            {
+       	{
                 "objects": 200,
                 "size": 20
             },
-            {
+       	{
                 "objects": 50,
                 "size": 28
             },
-            {
+       	{
                 "objects": 100,
                 "size": 64
             },
-            {
+       	{
                 "objects": 40,
                 "size": 100
             },
-            {
+       	{
                 "objects": 20,
                 "size": 144
             },
-            {
+       	{
                 "objects": 10,
                 "size": 156
             }
@@ -84,12 +84,10 @@
     },
     "optics": {
         "baseFactor": 32,
-        "cameraMinimumDisplacementPixelsPower": 1,
         "cameraNearPlane": 96,
         "horizontalViewPointCenter": 192,
         "maximumXViewDistance": 4096,
         "maximumYViewDistance": 4096,
-        "parallaxCorrectionFactor": 4,
         "scalingModifierFactor": 1,
         "screenDepth": 2048,
         "screenHeight": 224,
@@ -110,7 +108,6 @@
     },
     "physics": {
         "angleToPreventColliderDisplacement": 10,
-        "bodiesToCheckForGravity": 10,
         "frictionForceFactorPower": 2,
         "gravity": 19.6,
         "highPrecision": false,
