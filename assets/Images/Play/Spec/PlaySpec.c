@@ -186,8 +186,11 @@ ComponentSpec** PlayEntityComponentSpecs[] =
 AnimatedEntityROMSpec PlayEntity =
 {
 	{
-		// class allocator
+		// class allocator		
 		__TYPE(AnimatedEntity),
+
+		// Components
+		(ComponentSpecs**)PlayEntityComponentSpecs,
 
 		// children
 		NULL,

@@ -342,8 +342,11 @@ ComponentSpec** VideoEntityComponentSpecs[] =
 AnimatedEntityROMSpec VideoEntity =
 {
 	{
-		// class allocator
+		// class allocator		
 		__TYPE(AnimatedEntity),
+
+		// Components
+		(ComponentSpecs**)VideoEntityComponentSpecs,
 
 		// children
 		NULL,

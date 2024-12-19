@@ -134,8 +134,11 @@ ComponentSpec** ProgressBarEntityComponentSpecs[] =
 
 EntityROMSpec ProgressBarEntity =
 {
-	// class allocator
+	// class allocator	
 	__TYPE(Entity),
+
+	// Components
+	(ComponentSpecs**)ProgressBarEntityComponentSpecs,
 
 	// children
 	NULL,
