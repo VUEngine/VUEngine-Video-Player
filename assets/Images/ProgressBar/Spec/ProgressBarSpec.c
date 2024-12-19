@@ -81,7 +81,7 @@ TextureROMSpec ProgressBarTexture =
 	false
 };
 
-BgmapSpriteROMSpec ProgressBarSprite =
+BgmapSpriteROMSpec ProgressBarSpriteSpec =
 {
 	{
 		// Sprite

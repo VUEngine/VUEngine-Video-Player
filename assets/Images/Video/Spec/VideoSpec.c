@@ -201,7 +201,7 @@ TextureROMSpec VideoLTexture =
 	false
 };
 
-BgmapSpriteROMSpec VideoLSprite =
+BgmapSpriteROMSpec VideoLSpriteSpec =
 {
 	{
 		// Sprite
@@ -287,7 +287,7 @@ TextureROMSpec VideoRTexture =
 	false
 };
 
-BgmapSpriteROMSpec VideoRSprite =
+BgmapSpriteROMSpec VideoRSpriteSpec =
 {
 	{
 		// Sprite

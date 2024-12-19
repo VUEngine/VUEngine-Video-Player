@@ -132,7 +132,7 @@ TextureROMSpec PlayTexture =
 	false
 };
 
-BgmapSpriteROMSpec PlaySprite =
+BgmapSpriteROMSpec PlaySpriteSpec =
 {
 	{
 		// Sprite
