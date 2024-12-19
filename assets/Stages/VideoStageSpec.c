@@ -77,7 +77,7 @@ StageROMSpec VideoStage =
 
 	// level
 	{
-        // size
+        // Size
    	{
             // x
             __SCREEN_WIDTH,
@@ -156,7 +156,7 @@ StageROMSpec VideoStage =
             },
 
             // brightness repeat
-            (BrightnessRepeatSpec*)NULL,
+        	(BrightnessRepeatSpec*)NULL,
         },
 
         // palettes' config
@@ -245,10 +245,10 @@ StageROMSpec VideoStage =
     // assets
     {
         // fonts to preload
-        (FontSpec**)VideoStageFonts,
+    	(FontSpec**)VideoStageFonts,
 
         // char sets to preload
-        (CharSetSpec**)NULL,
+    	(CharSetSpec**)NULL,
 
         // textures to preload
 		(TextureSpec**)NULL,
@@ -265,8 +265,8 @@ StageROMSpec VideoStage =
             NULL,
         },
 
-        // children
-        (PositionedEntity*)VideoStageChildren,
+        // Children specs
+    	(PositionedEntity*)VideoStageChildren,
     },
 
 	// post processing effects

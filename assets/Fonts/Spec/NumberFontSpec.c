@@ -53,7 +53,7 @@ FontROMSpec NumberFontSpec =
 	// number of characters per line in charset
 	14,
 
-	// size of a single character (in chars) ({width, height})
+	// Size of a single character (in chars) ({width, height})
 	{1, 1},
 
 	// font's name

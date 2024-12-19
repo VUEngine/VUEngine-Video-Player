@@ -129,40 +129,36 @@ ComponentSpec** ProgressBarEntityComponentSpecs[] =
 
 ComponentSpec** ProgressBarEntityComponentSpecs[] = 
 {
-	@COMPONENTS:ProgressBarEntity@
+	
+/*
+* VUEngine Video Player
+*
+* © Christian Radke and Marten Reiß
+*
+* For the full copyright and license information, please view the LICENSE file
+* that was distributed with this source code.
+*/
+	NULL
 };
 
 EntityROMSpec ProgressBarEntity =
 {
-	// class allocator	
+	// Class allocator	
 	__TYPE(Entity),
 
-	// Components
-	(ComponentSpecs**)ProgressBarEntityComponentSpecs,
+	// Component specs
+	(ComponentSpec**)ProgressBarEntityComponentSpecs,
 
-	// children
+	// Children specs
 	NULL,
 
-	@BEHAVIORS:NULL@,
-
-	// extra info
+	// Extra info info
 	NULL,
 
-	@SPRITES:(SpriteSpec**)ProgressBarSprites@,
-
-	// use z displacement in projection
-	false,
-
-	@WIREFRAMES:NULL@,
-
-	@COLLIDERS:NULL@,
-
-	// size
-	// if 0, width and height will be inferred from the first sprite's texture's size
+	// Size
+	// If 0, it is computed from the visual components if any
 	{0, 0, 0},
 
-	// gameworld's character's type
-	kTypeNone,
-
-	@PHYSICS:NULL@,
+	// In-game entity's type
+	kTypeNone
 };
