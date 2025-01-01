@@ -8,66 +8,66 @@
  */
 
 
-//=========================================================================================================
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————
 // INCLUDES
-//=========================================================================================================
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 #include <AnimatedEntity.h>
 #include <BgmapAnimatedSprite.h>
 
 
-//=========================================================================================================
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————
 // DECLARATIONS
-//=========================================================================================================
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 extern uint32 PlayTiles[];
 extern uint32 PlayTilesFrameOffsets[];
 extern uint16 PlayMap[];
 
 
-//=========================================================================================================
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————
 // DEFINITIONS
-//=========================================================================================================
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 AnimationFunctionROMSpec PlayPlayAnimation =
 {
-	// number of frames of this animation function
+	// Number of frames that the texture supports of this animation function
 	1,
 
-	// frames to play in animation
+	// Frames to play in animation
 	{0},
 
-	// number of cycles a frame of animation is displayed
+	// Number of cycles a frame of animation is displayed
 	1,
 
-	// whether to play it in loop or not
+	// Whether to play it in loop or not
 	false,
 
-	// method to call on function completion
+	// Callback on animation completion
 	NULL,
 
-	// function's name
+	// Animation's name
 	"Play",
 };
 
 AnimationFunctionROMSpec PlayPauseAnimation =
 {
-	// number of frames of this animation function
+	// Number of frames that the texture supports of this animation function
 	1,
 
-	// frames to play in animation
+	// Frames to play in animation
 	{1},
 
-	// number of cycles a frame of animation is displayed
+	// Number of cycles a frame of animation is displayed
 	1,
 
-	// whether to play it in loop or not
+	// Whether to play it in loop or not
 	false,
 
-	// method to call on function completion
+	// Callback on animation completion
 	NULL,
 
-	// function's name
+	// Animation's name
 	"Pause",
 };
 
@@ -81,54 +81,54 @@ const AnimationFunction* PlayAnimations[] =
 
 CharSetROMSpec PlayCharset =
 {
-	// number of chars in function of the number of frames to load at the same time
+	// Number of chars in function of the number of frames to load at the same time
 	3,
 
-	// whether it is shared or not
+	// Whether it is shared or not
 	true,
 	
-	// whether the tiles are optimized or not
+	// Whether the tiles are optimized or not
 	true,
 
-	// char spec
+	// Tiles array
 	PlayTiles,
 
-	// pointer to the frames offsets
+	// Frame offsets array
 	PlayTilesFrameOffsets
 };
 
 TextureROMSpec PlayTexture =
 {
-	// charset spec
+	// Pointer to the char spec that the texture uses
 	(CharSetSpec*)&PlayCharset,
 
-	// bgmap spec
+	// Pointer to the map array that defines how to use the tiles from the char set
 	PlayMap,
 
-	// cols (max 64)
+	// Horizontal size in tiles of the texture (max. 64)
 	2,
 
-	// rows (max 64)
+	// Vertical size in tiles of the texture (max. 64)
 	2,
 
 	// padding for affine transformations
 	{0, 0},
 
-	// number of frames, depending on charset's allocation type:
+	// Number of frames that the texture supports, depending on charset's allocation type:
 	// __ANIMATED_SINGLE*, __ANIMATED_SHARED*, __NOT_ANIMATED: 1
 	// __ANIMATED_MULTI: total number of frames
 	1,
 
-	// palette number (0-3)
+	// Palette index to use by the graphical data (0 - 3)
 	1,
 
-	// recyclable
+	// Flag to recyble the texture with a different map
 	true,
 
-	// vertical flip
+	// Flag to vertically flip the image
 	false,
 
-	// horizontal flip
+	// Flag to horizontally flip the image
 	false
 };
 
@@ -144,24 +144,24 @@ BgmapSpriteROMSpec PlaySpriteSpec =
 		    kSpriteComponent
 		},
 
-		// texture spec
+		// Spec for the texture to display
 		(TextureSpec*)&PlayTexture,
 
-		// transparency (__TRANSPARENCY_NONE, __TRANSPARENCY_EVEN or __TRANSPARENCY_ODD)
+		// Transparency mode (__TRANSPARENCY_NONE, __TRANSPARENCY_EVEN or __TRANSPARENCY_ODD)
 		__TRANSPARENCY_NONE,
 
-		// displacement
+		// Displacement added to the sprite's position
 		{0, 0, 0, 0},
 	},
 
-	// bgmap mode (__WORLD_BGMAP, __WORLD_AFFINE, __WORLD_OBJECT or __WORLD_HBIAS)
+	// The display mode (__WORLD_BGMAP, __WORLD_AFFINE, __WORLD_OBJECT or __WORLD_HBIAS)
 	// make sure to use the proper corresponding sprite type throughout the spec (BgmapSprite or ObjectSprite)
 	__WORLD_BGMAP,
 
 	// pointer to affine / hbias manipulation function
 	NULL,
 
-	// display mode (__WORLD_ON, __WORLD_LON or __WORLD_RON)
+	// Flag to indicate in which display to show the texture (__WORLD_ON, __WORLD_LON or __WORLD_RON)
 	__WORLD_ON,
 };
 
@@ -217,9 +217,9 @@ AnimatedEntityROMSpec PlayEntity =
 		
 	},
 
-	// pointer to the animation spec for the item
+	// Pointer to animation functions array
 	(const AnimationFunction**)&PlayAnimations,
 
-	// initial animation
+	// Animation to play automatically
 	"Play"
 };
