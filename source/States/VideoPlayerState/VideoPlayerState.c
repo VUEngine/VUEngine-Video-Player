@@ -7,12 +7,9 @@
  * that was distributed with this source code.
  */
 
-
-
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 // INCLUDES
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
-
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 #include <string.h>
 
@@ -25,31 +22,25 @@
 #include <VIPManager.h>
 #include <VUEngine.h>
 
-
-
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 // DECLARATIONS
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
-
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 extern StageROMSpec VideoStage;
 
-
-
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 // CLASS'S METHODS
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
-
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 void VideoPlayerState::constructor()
 {
 	// Always explicitly call the base's constructor 
 	Base::constructor();
 
-	// init members
-	this->videoEntity = NULL;
-	this->progressBarEntity = NULL;
-	this->playEntity = NULL;
+	// Init members
+	this->videoActor = NULL;
+	this->progressBarActor = NULL;
+	this->playActor = NULL;
 	this->videoPlaying = true;
 	this->guiVisible = false;
 	this->numberOfFrames = 0;
@@ -64,44 +55,43 @@ void VideoPlayerState::destructor()
 
 void VideoPlayerState::enter(void* owner __attribute__ ((unused)))
 {
-	// call base
 	Base::enter(this, owner);
 
-	// disable user input
+	// Disable user input
 	VUEngine::disableKeypad(VUEngine::getInstance());
 
-	// load stage
+	// Load stage
 	GameState::configureStage(GameState::safeCast(this), (StageSpec*)&VideoStage, NULL);
 
-	// get entities from stage
-	this->videoEntity = AnimatedEntity::safeCast(Container::getChildByName(
+	// Get actors from stage
+	this->videoActor = Actor::safeCast(Container::getChildByName(
 		Container::safeCast(VUEngine::getStage(VUEngine::getInstance())),
 		"VideoEnt",
 		false
 	));
 
-	this->progressBarEntity = Entity::safeCast(Container::getChildByName(
+	this->progressBarActor = Actor::safeCast(Container::getChildByName(
 		Container::safeCast(VUEngine::getStage(VUEngine::getInstance())),
 		"ProgrEnt",
 		false
 	));
 	
-	this->playEntity = AnimatedEntity::safeCast(Container::getChildByName(
+	this->playActor = Actor::safeCast(Container::getChildByName(
 		Container::safeCast(VUEngine::getStage(VUEngine::getInstance())),
 		"PlayEnt",
 		false
 	));
 
-	this->numberOfFrames = AnimatedEntity::getNumberOfFrames(this->videoEntity);
+	this->numberOfFrames = Actor::getNumberOfFrames(this->videoActor);
 	this->numberOfFrames >>= 1;
 
-	// initially hide gui
+	// Initially hide gui
 	VideoPlayerState::hideGui(this);
 
-	// start clocks to start animations
+	// Start clocks to start animations
 	GameState::startClocks(GameState::safeCast(this));
 
-	// start fade in effect
+	// Start fade in effect
 	Camera::startEffect(Camera::getInstance(),
 		kFadeTo, // effect type
 		0, // initial delay (in ms)
@@ -116,25 +106,25 @@ void VideoPlayerState::execute(void* owner)
 {
 	Base::execute(this, owner);
 
-	// refresh GUI if the video is playing
+	// Refresh GUI if the video is playing
 	if(this->guiVisible && this->videoPlaying)
 	{
 		VideoPlayerState::printFrames(this);
 		VideoPlayerState::printProgress(this);
 	}
 
-	// if the video is paused in hicolor mode, make sure to alternate the two frames that make the hi-color image
+	// If the video is paused in hicolor mode, make sure to alternate the two frames that make the hi-color image
 	if(!this->videoPlaying && this->hiColorMode)
 	{
-		int currentFrame = AnimatedEntity::getActualFrame(this->videoEntity);
+		int currentFrame = Actor::getActualFrame(this->videoActor);
 
 		if(currentFrame & 1)
 		{
-			AnimatedEntity::previousFrame(AnimatedEntity::safeCast(this->videoEntity));
+			Actor::previousFrame(Actor::safeCast(this->videoActor));
 		}
 		else
 		{
-			AnimatedEntity::nextFrame(AnimatedEntity::safeCast(this->videoEntity));
+			Actor::nextFrame(Actor::safeCast(this->videoActor));
 		}
 	}
 }
@@ -147,18 +137,18 @@ void VideoPlayerState::processUserInput(UserInput userInput)
 		(userInput.pressedKey & K_RT) || ((userInput.holdKey & K_RT) && (userInput.holdKeyDuration > 12))
 	)
 	{
-		// pause animation
+		// Pause animation
 		if(this->videoPlaying)
 		{
 			VideoPlayerState::pauseVideo(this);
-			AnimatedEntity::playAnimation(AnimatedEntity::safeCast(this->playEntity), "Pause");
+			Actor::playAnimation(Actor::safeCast(this->playActor), "Pause");
 			this->videoPlaying = false;
 			VideoPlayerState::showGui(this);
 		}
 
-		// show next frame
-		AnimatedEntity::nextFrame(AnimatedEntity::safeCast(this->videoEntity));
-		AnimatedEntity::nextFrame(AnimatedEntity::safeCast(this->videoEntity));
+		// Show next frame
+		Actor::nextFrame(Actor::safeCast(this->videoActor));
+		Actor::nextFrame(Actor::safeCast(this->videoActor));
 
 		VideoPlayerState::printFrames(this);
 		VideoPlayerState::printProgress(this);
@@ -169,42 +159,42 @@ void VideoPlayerState::processUserInput(UserInput userInput)
 		(userInput.pressedKey & K_LT) || ((userInput.holdKey & K_LT) && (userInput.holdKeyDuration > 12))
 	)
 	{
-		// pause animation
+		// Pause animation
 		if(this->videoPlaying)
 		{
 			VideoPlayerState::pauseVideo(this);
-			AnimatedEntity::playAnimation(AnimatedEntity::safeCast(this->playEntity), "Pause");
+			Actor::playAnimation(Actor::safeCast(this->playActor), "Pause");
 			this->videoPlaying = false;
 			VideoPlayerState::showGui(this);
 		}
 
-		// show previous frame
-		AnimatedEntity::previousFrame(AnimatedEntity::safeCast(this->videoEntity));
-		AnimatedEntity::previousFrame(AnimatedEntity::safeCast(this->videoEntity));
+		// Show previous frame
+		Actor::previousFrame(Actor::safeCast(this->videoActor));
+		Actor::previousFrame(Actor::safeCast(this->videoActor));
 
 		VideoPlayerState::printFrames(this);
 		VideoPlayerState::printProgress(this);
 	}
 	else if(userInput.pressedKey & K_STA)
 	{
-		// pause/resume animation
+		// Pause/resume animation
 		if(this->videoPlaying)
 		{
 			VideoPlayerState::pauseVideo(this);
 		}
 		else
 		{
-			AnimatedEntity::pauseAnimation(AnimatedEntity::safeCast(this->videoEntity), false);
+			Actor::pauseAnimation(Actor::safeCast(this->videoActor), false);
 		}
 		this->videoPlaying = !this->videoPlaying;
 		if(this->videoPlaying)
 		{
-			AnimatedEntity::playAnimation(AnimatedEntity::safeCast(this->playEntity), "Play");
+			Actor::playAnimation(Actor::safeCast(this->playActor), "Play");
 			VideoPlayerState::hideGui(this);
 		}
 		else
 		{
-			AnimatedEntity::playAnimation(AnimatedEntity::safeCast(this->playEntity), "Pause");
+			Actor::playAnimation(Actor::safeCast(this->playActor), "Pause");
 			VideoPlayerState::showGui(this);
 		}
 	}
@@ -225,23 +215,23 @@ void VideoPlayerState::processUserInput(UserInput userInput)
 	else if(userInput.pressedKey & K_A)
 	{
 		this->hiColorMode = !this->hiColorMode;
-		int currentFrame = AnimatedEntity::getActualFrame(this->videoEntity);
-		AnimatedEntity::playAnimation(AnimatedEntity::safeCast(this->videoEntity), this->hiColorMode ? "HiColor" : "4Color");
-		AnimatedEntity::setActualFrame(this->videoEntity, currentFrame);
-		AnimatedEntity::pauseAnimation(AnimatedEntity::safeCast(this->videoEntity), !this->videoPlaying);
+		int currentFrame = Actor::getActualFrame(this->videoActor);
+		Actor::playAnimation(Actor::safeCast(this->videoActor), this->hiColorMode ? "HiColor" : "4Color");
+		Actor::setActualFrame(this->videoActor, currentFrame);
+		Actor::pauseAnimation(Actor::safeCast(this->videoActor), !this->videoPlaying);
 	}
 }
 
 void VideoPlayerState::showGui()
 {
-	// entities
-	Entity::show(this->progressBarEntity);
-	Entity::show(this->playEntity);
+	// Actors
+	Actor::show(this->progressBarActor);
+	Actor::show(this->playActor);
 
-	// frame counter
+	// Frame counter
 	VideoPlayerState::printFrames(this);
 
-	// progress bar
+	// Progress bar
 	VideoPlayerState::printProgress(this);
 
 	this->guiVisible = true;
@@ -249,15 +239,15 @@ void VideoPlayerState::showGui()
 
 void VideoPlayerState::hideGui()
 {
-	// entities
-	Entity::hide(this->progressBarEntity);
-	Entity::hide(this->playEntity);
+	// Actors
+	Actor::hide(this->progressBarActor);
+	Actor::hide(this->playActor);
 
-	// frame counter
+	// Frame counter
 	Printing::text(Printing::getInstance(), "...", 44, 25, "Number");
 	Printing::text(Printing::getInstance(), "....", 43, 26, "Number");
 
-	// progress bar
+	// Progress bar
 	Printing::text(Printing::getInstance(), ".......................................", 3, 25, "Number");
 	Printing::text(Printing::getInstance(), ".......................................", 3, 26, "Number");
 
@@ -266,7 +256,7 @@ void VideoPlayerState::hideGui()
 
 void VideoPlayerState::printFrames()
 {
-	int currentFrame = AnimatedEntity::getActualFrame(this->videoEntity);
+	int currentFrame = Actor::getActualFrame(this->videoActor);
 	currentFrame >>= 1;
 	currentFrame += 1;
 
@@ -304,20 +294,20 @@ void VideoPlayerState::printFrames()
 
 void VideoPlayerState::pauseVideo()
 {
-	AnimatedEntity::pauseAnimation(AnimatedEntity::safeCast(this->videoEntity), true);
+	Actor::pauseAnimation(Actor::safeCast(this->videoActor), true);
 
-	int currentFrame = AnimatedEntity::getActualFrame(this->videoEntity);
+	int currentFrame = Actor::getActualFrame(this->videoActor);
 
-	// if currentFrame is odd, go to previous frame (4 color frame)
+	// If currentFrame is odd, go to previous frame (4 color frame)
 	if(currentFrame & 1)
 	{
-		AnimatedEntity::previousFrame(AnimatedEntity::safeCast(this->videoEntity));
+		Actor::previousFrame(Actor::safeCast(this->videoActor));
 	}
 }
 
 void VideoPlayerState::printProgress()
 {
-	int currentFrame = AnimatedEntity::getActualFrame(this->videoEntity);
+	int currentFrame = Actor::getActualFrame(this->videoActor);
 	currentFrame >>= 1;
 
 	int progress = (int)((float)currentFrame / (float)this->numberOfFrames * 78);
@@ -720,6 +710,6 @@ void VideoPlayerState::printProgress()
 // handle event
 void VideoPlayerState::onFadeInComplete(Object eventFirer __attribute__ ((unused)))
 {
-	// enable user input
+	// Enable user input
 	VUEngine::enableKeypad(VUEngine::getInstance());
 }

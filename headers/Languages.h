@@ -5,13 +5,10 @@
 #ifndef LANGUAGES_H_
 #define LANGUAGES_H_
 
-
-
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 // DEFINITIONS
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
-
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 enum LanguageIdentifiers
 {
@@ -22,7 +19,7 @@ enum LanguageIdentifiers
 
 enum LanguageStrings
 {
-    kStringActorsLabel,
+    kStringStatefulActorsLabel,
     kStringAnimationsLabel,
     kStringAnimationSubtitle,
     kStringAutomaticPauseBody,
@@ -42,9 +39,9 @@ enum LanguageStrings
     kStringConceptsSubtitle,
     kStringDwarfPlanetLabel,
     kStringEffectSubtitle,
-    kStringEntitiesLabel,
-    kStringEntityCreationLabel,
-    kStringEntityDestructionLabel,
+    kStringActorsLabel,
+    kStringActorCreationLabel,
+    kStringActorDestructionLabel,
     kStringEventsLabel,
     kStringFrameBuffersLabel,
     kStringGameStatesLabel,
@@ -85,6 +82,5 @@ enum LanguageStrings
     kStringWireframesLabel,
     kStringWobbleLabel,
 };
-
 
 #endif

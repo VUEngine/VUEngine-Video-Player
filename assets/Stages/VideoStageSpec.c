@@ -7,49 +7,39 @@
  * that was distributed with this source code.
  */
 
-
-
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 // INCLUDES
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
-
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 #include <Stage.h>
 #include <Fonts.h>
 #include <VIPManager.h>
 
-
-
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 // DECLARATIONS
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
-
-extern EntitySpec PlayEntity;
-extern EntitySpec ProgressBarEntity;
-extern EntitySpec VideoEntity;
+extern ActorSpec PlayActor;
+extern ActorSpec ProgressBarActor;
+extern ActorSpec VideoActor;
 extern FontSpec NumberFontSpec;
 
-
-
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 // ASSETS
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
-
-PositionedEntityROMSpec VideoStageChildren[] =
+PositionedActorROMSpec VideoStageChildren[] =
 {
-	{&PlayEntity,			{-192 + 12, 112 - 16, 0}, {0, 0, 0}, {1, 1, 1}, 0, "PlayEnt", NULL, NULL, true},
-	{&ProgressBarEntity,	{0 - 8, 112 - 16, 0}, {0, 0, 0}, {1, 1, 1}, 0, "ProgrEnt", NULL, NULL, true},
-	{&VideoEntity,			{0, 0, 0}, {0, 0, 0}, {1, 1, 1}, 1, "VideoEnt", NULL, NULL, true},
+	{&PlayActor,			{-192 + 12, 112 - 16, 0}, {0, 0, 0}, {1, 1, 1}, 0, "PlayEnt", NULL, NULL, true},
+	{&ProgressBarActor,	{0 - 8, 112 - 16, 0}, {0, 0, 0}, {1, 1, 1}, 0, "ProgrEnt", NULL, NULL, true},
+	{&VideoActor,			{0, 0, 0}, {0, 0, 0}, {1, 1, 1}, 1, "VideoEnt", NULL, NULL, true},
 
 	{NULL, {0, 0, 0}, {0, 0, 0}, {1, 1, 1}, 0, NULL, NULL, NULL, false},
 };
 
-
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 // ASSETS LISTS
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 FontROMSpec* const VideoStageFonts[] =
 {
@@ -58,12 +48,9 @@ FontROMSpec* const VideoStageFonts[] =
 	NULL
 };
 
-
-
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 // STAGE DEFINITION
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
-
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 StageROMSpec VideoStage =
 {
@@ -126,15 +113,15 @@ StageROMSpec VideoStage =
 
     // Streaming
 	{
-		// Padding to be added to camera's frustum when checking if a entity spec
-		// describes an entity that is within the camera's range
+		// Padding to be added to camera's frustum when checking if a actor spec
+		// describes an actor that is within the camera's range
 		40,
-		// Padding to be added to camera's frustum when checking if a entity is
+		// Padding to be added to camera's frustum when checking if a actor is
 		// out of the camera's range
 		16,
-		// Amount of entity descriptions to check for streaming in entities
+		// Amount of actor descriptions to check for streaming in actors
 		24,
-		// If true, entity instantiation is done over time
+		// If true, actor instantiation is done over time
 		false,
 	},
 
@@ -265,7 +252,7 @@ StageROMSpec VideoStage =
         NULL,
     },
 
-    // Entities
+    // Actors
     {
         // UI configuration
    	{
@@ -273,8 +260,8 @@ StageROMSpec VideoStage =
             NULL,
         },
 
-        // Stage's children entities
-    	(PositionedEntity*)VideoStageChildren,
+        // Stage's children actors
+    	(PositionedActor*)VideoStageChildren,
     },
 
 	// Post processing effects

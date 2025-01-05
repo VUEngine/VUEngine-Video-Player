@@ -5,33 +5,27 @@
 #ifndef MESSAGES_H_
 #define MESSAGES_H_
 
-
-
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 // INCLUDES
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
-
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 #include <Constants.h>
 
-
-
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 // DEFINITIONS
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
-
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 enum Messages
 {
-	kMessageActorsStateHoldLeft = kMessageLastEngine + 1,
-	kMessageActorsStateHoldRight,
-	kMessageActorsStateNoMessage,
-	kMessageActorsStatePrintActorStatus,
-	kMessageActorsStateReleasedLeft,
-	kMessageActorsStateReleasedRight,
-	kMessageActorsStateResucitate,
+	kMessageStatefulActorsStateHoldLeft = kMessageLastEngine + 1,
+	kMessageStatefulActorsStateHoldRight,
+	kMessageStatefulActorsStateNoMessage,
+	kMessageStatefulActorsStatePrintStatefulActorStatus,
+	kMessageStatefulActorsStateReleasedLeft,
+	kMessageStatefulActorsStateReleasedRight,
+	kMessageStatefulActorsStateResucitate,
 	kMessagePongBallStartMoving,
 	kMessagePongDummy,
 	kMessagePongGoodBye,
@@ -39,6 +33,5 @@ enum Messages
 	kMessagePongSendInput,
 	kMessagePongSync,
 };
-
 
 #endif

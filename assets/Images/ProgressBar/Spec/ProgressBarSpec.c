@@ -7,26 +7,23 @@
  * that was distributed with this source code.
  */
 
-
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 // INCLUDES
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
-#include <Entity.h>
+#include <Actor.h>
 #include <BgmapSprite.h>
 
-
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 // DECLARATIONS
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 extern uint32 ProgressBarTiles[];
 extern uint16 ProgressBarMap[];
 
-
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 // DEFINITIONS
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 CharSetROMSpec ProgressBarCharset =
 {
@@ -120,14 +117,12 @@ BgmapSpriteROMSpec* const ProgressBarSprites[] =
 	NULL
 };
 
-
-
-ComponentSpec** ProgressBarEntityComponentSpecs[] = 
+ComponentSpec** ProgressBarActorComponentSpecs[] = 
 {
     @COMPONENTS@
 };
 
-ComponentSpec** ProgressBarEntityComponentSpecs[] = 
+ComponentSpec** ProgressBarActorComponentSpecs[] = 
 {
 	
 /*
@@ -141,13 +136,13 @@ ComponentSpec** ProgressBarEntityComponentSpecs[] =
 	NULL
 };
 
-EntityROMSpec ProgressBarEntity =
+ActorROMSpec ProgressBarActor =
 {
-	// Class allocator	
-	__TYPE(Entity),
+	// Class allocator
+	__TYPE(Actor),
 
 	// Component specs
-	(ComponentSpec**)ProgressBarEntityComponentSpecs,
+	(ComponentSpec**)ProgressBarActorComponentSpecs,
 
 	// Children specs
 	NULL,
@@ -159,6 +154,13 @@ EntityROMSpec ProgressBarEntity =
 	// If 0, it is computed from the visual components if any
 	{0, 0, 0},
 
-	// Entity's in-game type
-	kTypeNone
+	// Actor's in-game type
+	kTypeNone,
+
+	// Pointer to animation functions array
+	NULL,
+
+	// Animation to play automatically
+	NULL
 };
+

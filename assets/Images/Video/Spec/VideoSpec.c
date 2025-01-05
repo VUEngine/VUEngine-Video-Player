@@ -7,18 +7,16 @@
  * that was distributed with this source code.
  */
 
-
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 // INCLUDES
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
-#include <AnimatedEntity.h>
+#include <Actor.h>
 #include <BgmapAnimatedSprite.h>
 
-
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 // DECLARATIONS
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 extern uint32 VideoLTiles[];
 extern uint32 VideoLTilesFrameOffsets[];
@@ -27,10 +25,9 @@ extern uint32 VideoRTiles[];
 extern uint32 VideoRTilesFrameOffsets[];
 extern uint16 VideoRMap[];
 
-
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 // DEFINITIONS
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 AnimationFunctionROMSpec VideoHiColorAnimation =
 {
@@ -180,7 +177,7 @@ TextureROMSpec VideoLTexture =
 	// Vertical size in tiles of the texture (max. 64)
 	28,
 
-	// padding for affine transformations
+	// Padding for affine transformations
 	{0, 0},
 
 	// Number of frames that the texture supports, depending on charset's allocation type:
@@ -227,7 +224,7 @@ BgmapSpriteROMSpec VideoLSpriteSpec =
 	// make sure to use the proper corresponding sprite type throughout the spec (BgmapSprite or ObjectSprite)
 	__WORLD_BGMAP,
 
-	// pointer to affine / hbias manipulation function
+	// Pointer to affine / hbias manipulation function
 	NULL,
 
 	// Flag to indicate in which display to show the texture (__WORLD_ON, __WORLD_LON or __WORLD_RON)
@@ -266,7 +263,7 @@ TextureROMSpec VideoRTexture =
 	// Vertical size in tiles of the texture (max. 64)
 	28,
 
-	// padding for affine transformations
+	// Padding for affine transformations
 	{0, 0},
 
 	// Number of frames that the texture supports, depending on charset's allocation type:
@@ -313,7 +310,7 @@ BgmapSpriteROMSpec VideoRSpriteSpec =
 	// make sure to use the proper corresponding sprite type throughout the spec (BgmapSprite or ObjectSprite)
 	__WORLD_BGMAP,
 
-	// pointer to affine / hbias manipulation function
+	// Pointer to affine / hbias manipulation function
 	NULL,
 
 	// Flag to indicate in which display to show the texture (__WORLD_ON, __WORLD_LON or __WORLD_RON)
@@ -327,14 +324,12 @@ BgmapSpriteROMSpec* const VideoSprites[] =
 	NULL
 };
 
-
-
-ComponentSpec** VideoEntityComponentSpecs[] = 
+ComponentSpec** VideoActorComponentSpecs[] = 
 {
     @COMPONENTS@
 };
 
-ComponentSpec** VideoEntityComponentSpecs[] = 
+ComponentSpec** VideoActorComponentSpecs[] = 
 {
 	
 /*
@@ -348,14 +343,14 @@ ComponentSpec** VideoEntityComponentSpecs[] =
 	NULL
 };
 
-AnimatedEntityROMSpec VideoEntity =
+ActorROMSpec VideoActor =
 {
 	{
-		// Class allocator		
-		__TYPE(AnimatedEntity),
+		// Class allocator
+		__TYPE(Actor),
 
 		// Component specs
-		(ComponentSpec**)VideoEntityComponentSpecs,
+		(ComponentSpec**)VideoActorComponentSpecs,
 
 		// Children specs
 		NULL,
@@ -367,11 +362,8 @@ AnimatedEntityROMSpec VideoEntity =
 		// If 0, it is computed from the visual components if any
 		{0, 0, 0},
 
-		// Entity's in-game type
+		// Actor's in-game type
 		0,
-
-		
-	},
 
 	// Pointer to animation functions array
 	(const AnimationFunction**)&VideoAnimations,

@@ -7,27 +7,24 @@
  * that was distributed with this source code.
  */
 
-
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 // INCLUDES
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
-#include <AnimatedEntity.h>
+#include <Actor.h>
 #include <BgmapAnimatedSprite.h>
 
-
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 // DECLARATIONS
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 extern uint32 PlayTiles[];
 extern uint32 PlayTilesFrameOffsets[];
 extern uint16 PlayMap[];
 
-
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 // DEFINITIONS
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 AnimationFunctionROMSpec PlayPlayAnimation =
 {
@@ -111,7 +108,7 @@ TextureROMSpec PlayTexture =
 	// Vertical size in tiles of the texture (max. 64)
 	2,
 
-	// padding for affine transformations
+	// Padding for affine transformations
 	{0, 0},
 
 	// Number of frames that the texture supports, depending on charset's allocation type:
@@ -158,7 +155,7 @@ BgmapSpriteROMSpec PlaySpriteSpec =
 	// make sure to use the proper corresponding sprite type throughout the spec (BgmapSprite or ObjectSprite)
 	__WORLD_BGMAP,
 
-	// pointer to affine / hbias manipulation function
+	// Pointer to affine / hbias manipulation function
 	NULL,
 
 	// Flag to indicate in which display to show the texture (__WORLD_ON, __WORLD_LON or __WORLD_RON)
@@ -171,14 +168,12 @@ BgmapSpriteROMSpec* const PlaySprites[] =
 	NULL
 };
 
-
-
-ComponentSpec** PlayEntityComponentSpecs[] = 
+ComponentSpec** PlayActorComponentSpecs[] = 
 {
     @COMPONENTS@
 };
 
-ComponentSpec** PlayEntityComponentSpecs[] = 
+ComponentSpec** PlayActorComponentSpecs[] = 
 {
 	
 /*
@@ -192,14 +187,14 @@ ComponentSpec** PlayEntityComponentSpecs[] =
 	NULL
 };
 
-AnimatedEntityROMSpec PlayEntity =
+ActorROMSpec PlayActor =
 {
 	{
-		// Class allocator		
-		__TYPE(AnimatedEntity),
+		// Class allocator
+		__TYPE(Actor),
 
 		// Component specs
-		(ComponentSpec**)PlayEntityComponentSpecs,
+		(ComponentSpec**)PlayActorComponentSpecs,
 
 		// Children specs
 		NULL,
@@ -211,11 +206,8 @@ AnimatedEntityROMSpec PlayEntity =
 		// If 0, it is computed from the visual components if any
 		{0, 0, 0},
 
-		// Entity's in-game type
+		// Actor's in-game type
 		0,
-
-		
-	},
 
 	// Pointer to animation functions array
 	(const AnimationFunction**)&PlayAnimations,
