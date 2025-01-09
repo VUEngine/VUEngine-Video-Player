@@ -83,11 +83,11 @@ BgmapSpriteROMSpec ProgressBarSpriteSpec =
 	{
 		// Sprite
 		{
-		    // Allocator
-		    __TYPE(BgmapSprite),
+			// Allocator
+			__TYPE(BgmapSprite),
 
-		    // Component type
-		    kSpriteComponent
+			// Component type
+			kSpriteComponent
 		},
 
 		// Spec for the texture to display
@@ -119,7 +119,7 @@ BgmapSpriteROMSpec* const ProgressBarSprites[] =
 
 ComponentSpec** ProgressBarActorComponentSpecs[] = 
 {
-    @COMPONENTS@
+	@COMPONENTS@
 };
 
 ComponentSpec** ProgressBarActorComponentSpecs[] = 

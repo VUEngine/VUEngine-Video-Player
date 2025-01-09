@@ -134,11 +134,11 @@ BgmapSpriteROMSpec PlaySpriteSpec =
 	{
 		// Sprite
 		{
-		    // Allocator
-		    __TYPE(BgmapAnimatedSprite),
+			// Allocator
+			__TYPE(BgmapAnimatedSprite),
 
-		    // Component type
-		    kSpriteComponent
+			// Component type
+			kSpriteComponent
 		},
 
 		// Spec for the texture to display
@@ -170,7 +170,7 @@ BgmapSpriteROMSpec* const PlaySprites[] =
 
 ComponentSpec** PlayActorComponentSpecs[] = 
 {
-    @COMPONENTS@
+	@COMPONENTS@
 };
 
 ComponentSpec** PlayActorComponentSpecs[] = 
