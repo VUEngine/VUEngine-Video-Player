@@ -19,13 +19,13 @@
 
 enum Messages
 {
-	kMessageStatefulActorsStateHoldLeft = kMessageLastEngine + 1,
-	kMessageStatefulActorsStateHoldRight,
-	kMessageStatefulActorsStateNoMessage,
-	kMessageStatefulActorsStatePrintStatefulActorStatus,
-	kMessageStatefulActorsStateReleasedLeft,
-	kMessageStatefulActorsStateReleasedRight,
-	kMessageStatefulActorsStateResucitate,
+	kMessageActorsStateHoldLeft = kMessageLastEngine + 1,
+	kMessageActorsStateHoldRight,
+	kMessageActorsStateNoMessage,
+	kMessageActorsStatePrintActorStatus,
+	kMessageActorsStateReleasedLeft,
+	kMessageActorsStateReleasedRight,
+	kMessageActorsStateResucitate,
 	kMessagePongBallStartMoving,
 	kMessagePongDummy,
 	kMessagePongGoodBye,

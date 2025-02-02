@@ -12,7 +12,7 @@
 //——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 #include <Actor.h>
-#include <BgmapAnimatedSprite.h>
+#include <BgmapSprite.h>
 
 //——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 // DECLARATIONS
@@ -204,11 +204,14 @@ BgmapSpriteROMSpec VideoLSpriteSpec =
 		// Sprite
 		{
 			// Allocator
-			__TYPE(BgmapAnimatedSprite),
+			__TYPE(BgmapSprite),
 
 			// Component type
 			kSpriteComponent
 		},
+
+		// Is animated?
+		true,
 
 		// Spec for the texture to display
 		(TextureSpec*)&VideoLTexture,
@@ -290,11 +293,14 @@ BgmapSpriteROMSpec VideoRSpriteSpec =
 		// Sprite
 		{
 			// Allocator
-			__TYPE(BgmapAnimatedSprite),
+			__TYPE(BgmapSprite),
 
 			// Component type
 			kSpriteComponent
 		},
+
+		// Is animated?
+		true,
 
 		// Spec for the texture to display
 		(TextureSpec*)&VideoRTexture,

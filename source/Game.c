@@ -21,5 +21,5 @@
 int32 game(void)
 {
    // Start the game
-	return VUEngine::start(VUEngine::getInstance(), GameState::safeCast(VideoPlayerState::getInstance()));
+	return VUEngine::start(VUEngine::getInstance(), VUEngine::getInstance(), GameState::safeCast(VideoPlayerState::getInstance()));
 }
