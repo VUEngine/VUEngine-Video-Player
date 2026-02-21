@@ -95,22 +95,22 @@ void VideoPlayerState::enter(void* owner __attribute__ ((unused)))
 	// Start clocks to start animations
 	GameState::startClocks(GameState::safeCast(this));
 
-	// Start fade in effect
-	Camera::startEffect(Camera::getInstance(),
-		kFadeTo, // effect type
-		0, // initial delay (in ms)
-		NULL, // target brightness
-		0, // delay between fading steps (in ms)
-		(void (*)(Object, Object))VideoPlayerState::onFadeInComplete, // callback function
-		Object::safeCast(this) // callback scope
+	Camera::startEffect(Camera::getInstance(), kHide);
+	Camera::startEffect
+	(
+		Camera::getInstance(),
+		kFadeTo, 				// effect type
+		0, 						// initial delay (in ms)
+		NULL, 					// target brightness
+		__FADE_DELAY, 			// delay between fading steps (in ms)
+		Object::safeCast(this)  // callback scope
 	);
 }
 
 void VideoPlayerState::execute(void* owner)
 {
 	Base::execute(this, owner);
-	PRINT_TIME(1, 1);
-return;
+
 	// Refresh GUI if the video is playing
 	if(this->guiVisible && this->videoPlaying)
 	{
@@ -136,6 +136,7 @@ return;
 
 void VideoPlayerState::processUserInput(UserInput userInput)
 {
+	/*
 	if
 	(
 		(userInput.pressedKey & K_LR) || ((userInput.holdKey & K_LR) && (userInput.holdKeyDuration > 12)) ||
@@ -227,6 +228,7 @@ void VideoPlayerState::processUserInput(UserInput userInput)
 		Actor::setActualFrame(this->videoActor, currentFrame);
 		Actor::pauseAnimation(Actor::safeCast(this->videoActor), !this->videoPlaying);
 	}
+	*/
 }
 
 void VideoPlayerState::showGui()
@@ -247,8 +249,15 @@ void VideoPlayerState::showGui()
 void VideoPlayerState::hideGui()
 {
 	// Actors
-	Actor::hide(this->progressBarActor);
-	Actor::hide(this->playActor);
+	if(!isDeleted(this->progressBarActor))
+	{
+		Actor::hide(this->progressBarActor);
+	}
+	
+	if(!isDeleted(this->progressBarActor))
+	{
+		Actor::hide(this->playActor);
+	}
 
 	// Frame counter
 	Printer::text("...", 44, 25, "Number");
@@ -714,9 +723,18 @@ void VideoPlayerState::printProgress()
 	}
 }
 
-// handle event
-void VideoPlayerState::onFadeInComplete(Object eventFirer __attribute__ ((unused)))
+bool VideoPlayerState::onEvent(ListenerObject eventFirer __attribute__((unused)), uint16 eventCode)
 {
-	// Enable user input
-	KeypadManager::enable();
+	switch(eventCode)
+	{
+		case kEventEffectFadeInComplete:
+		{
+			// Enable user input
+			KeypadManager::enable();
+
+			return true;
+		}
+	}
+
+	return Base::onEvent(this, eventFirer, eventCode);
 }

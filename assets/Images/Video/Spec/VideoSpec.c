@@ -205,7 +205,7 @@ BgmapSpriteROMSpec VideoLSpriteSpec =
 			},
 
 			// Array of function animations
-			(const AnimationFunction**)NULL
+			(const AnimationFunction**)VideoAnimations
 		},
 
 		// Spec for the texture to display
@@ -297,7 +297,7 @@ BgmapSpriteROMSpec VideoRSpriteSpec =
 			},
 
 			// Array of function animations
-			(const AnimationFunction**)NULL
+			(const AnimationFunction**)VideoAnimations
 		},
 
 		// Spec for the texture to display

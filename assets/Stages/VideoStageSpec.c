@@ -30,11 +30,11 @@ extern FontSpec NumberFontSpec;
 
 PositionedActorROMSpec VideoStageChildren[] =
 {
-	{NULL, {0, 0, 0}, {0, 0, 0}, {1, 1, 1}, 0, NULL, NULL, NULL, false},
 	{&PlayActor,			{-192 + 12, 112 - 16, 0}, {0, 0, 0}, {1, 1, 1}, 0, "PlayEnt", NULL, NULL, true},
 	{&ProgressBarActor,	{0 - 8, 112 - 16, 0}, {0, 0, 0}, {1, 1, 1}, 0, "ProgrEnt", NULL, NULL, true},
 	{&VideoActor,			{0, 0, 0}, {0, 0, 0}, {1, 1, 1}, 1, "VideoEnt", NULL, NULL, true},
 
+	{NULL, {0, 0, 0}, {0, 0, 0}, {1, 1, 1}, 0, NULL, NULL, NULL, false},
 };
 
 //——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————

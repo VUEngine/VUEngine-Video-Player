@@ -38,6 +38,7 @@ singleton class VideoPlayerState : GameState
 	override void enter(void* owner);
 	override void execute(void* owner);
 	override void processUserInput(UserInput userInput);
+	override bool onEvent(ListenerObject eventFirer, uint16 eventCode);
 }
 
 #endif
