@@ -134,7 +134,7 @@ void VideoPlayerState::execute(void* owner)
 	}
 }
 
-void VideoPlayerState::processUserInput(UserInput userInput)
+void VideoPlayerState::processUserInput(UserInput userInput __attribute__ ((unused)))
 {
 	/*
 	if
