@@ -74,7 +74,8 @@ AnimationFunctionROMSpec VideoHiColorAnimation =
 	1,
 
 	// Whether to play it in loop or not
-	true
+	true,
+	
 	"HiColor",
 };
 
@@ -123,7 +124,8 @@ AnimationFunctionROMSpec Video4ColorAnimation =
 	1,
 
 	// Whether to play it in loop or not
-	true
+	true,
+	
 	"4Color",
 };
 

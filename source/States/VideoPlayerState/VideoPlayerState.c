@@ -109,7 +109,8 @@ void VideoPlayerState::enter(void* owner __attribute__ ((unused)))
 void VideoPlayerState::execute(void* owner)
 {
 	Base::execute(this, owner);
-
+	PRINT_TIME(1, 1);
+return;
 	// Refresh GUI if the video is playing
 	if(this->guiVisible && this->videoPlaying)
 	{
@@ -131,8 +132,6 @@ void VideoPlayerState::execute(void* owner)
 			Actor::nextFrame(Actor::safeCast(this->videoActor));
 		}
 	}
-
-	PRINT_TIME(1, 1);
 }
 
 void VideoPlayerState::processUserInput(UserInput userInput)

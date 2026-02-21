@@ -38,7 +38,8 @@ AnimationFunctionROMSpec PlayPlayAnimation =
 	1,
 
 	// Whether to play it in loop or not
-	false
+	false,
+	
 	"Play",
 };
 
@@ -54,7 +55,8 @@ AnimationFunctionROMSpec PlayPauseAnimation =
 	1,
 
 	// Whether to play it in loop or not
-	false
+	false,
+	
 	"Pause",
 };
 
