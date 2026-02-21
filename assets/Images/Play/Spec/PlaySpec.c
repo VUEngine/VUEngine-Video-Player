@@ -7,24 +7,24 @@
  * that was distributed with this source code.
  */
 
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 // INCLUDES
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 #include <Actor.h>
 #include <BgmapSprite.h>
 
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 // DECLARATIONS
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 extern uint32 PlayTiles[];
 extern uint32 PlayTilesFrameOffsets[];
 extern uint16 PlayMap[];
 
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 // DEFINITIONS
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 AnimationFunctionROMSpec PlayPlayAnimation =
 {
@@ -38,12 +38,7 @@ AnimationFunctionROMSpec PlayPlayAnimation =
 	1,
 
 	// Whether to play it in loop or not
-	false,
-
-	// Callback on animation completion
-	NULL,
-
-	// Animation's name
+	false
 	"Play",
 };
 
@@ -59,12 +54,7 @@ AnimationFunctionROMSpec PlayPauseAnimation =
 	1,
 
 	// Whether to play it in loop or not
-	false,
-
-	// Callback on animation completion
-	NULL,
-
-	// Animation's name
+	false
 	"Pause",
 };
 
@@ -134,15 +124,18 @@ BgmapSpriteROMSpec PlaySpriteSpec =
 	{
 		// Sprite
 		{
-			// Allocator
-			__TYPE(BgmapSprite),
+			// Component
+			{
+				// Allocator
+				__TYPE(BgmapSprite),
 
-			// Component type
-			kSpriteComponent
+				// Component type
+				kSpriteComponent
+			},
+
+			// Array of function animations
+			(const AnimationFunction**)NULL
 		},
-
-		// Is animated?
-		true,
 
 		// Spec for the texture to display
 		(TextureSpec*)&PlayTexture,
@@ -154,66 +147,43 @@ BgmapSpriteROMSpec PlaySpriteSpec =
 		{0, 0, 0, 0},
 	},
 
+	// Flag to indicate in which display to show the texture (__WORLD_ON, __WORLD_LON or __WORLD_RON)
+	__WORLD_ON,
+
 	// The display mode (__WORLD_BGMAP, __WORLD_AFFINE, __WORLD_OBJECT or __WORLD_HBIAS)
 	// make sure to use the proper corresponding sprite type throughout the spec (BgmapSprite or ObjectSprite)
 	__WORLD_BGMAP,
 
 	// Pointer to affine / hbias manipulation function
 	NULL,
-
-	// Flag to indicate in which display to show the texture (__WORLD_ON, __WORLD_LON or __WORLD_RON)
-	__WORLD_ON,
 };
 
-BgmapSpriteROMSpec* const PlaySprites[] =
+ComponentSpec* const PlayActorComponentSpecs[] = 
 {
-	&PlaySpriteSpec,
-	NULL
-};
-
-ComponentSpec** PlayActorComponentSpecs[] = 
-{
-	@COMPONENTS@
-};
-
-ComponentSpec** PlayActorComponentSpecs[] = 
-{
-	
-/*
-* VUEngine Video Player
-*
-* © Christian Radke and Marten Reiß
-*
-* For the full copyright and license information, please view the LICENSE file
-* that was distributed with this source code.
-*/
+	(ComponentSpec*)&PlaySpriteSpec,
 	NULL
 };
 
 ActorROMSpec PlayActor =
 {
-	{
-		// Class allocator
-		__TYPE(Actor),
+	// Class allocator
+	__TYPE(Actor),
 
-		// Component specs
-		(ComponentSpec**)PlayActorComponentSpecs,
+	// Component specs
+	(ComponentSpec**)PlayActorComponentSpecs,
 
-		// Children specs
-		NULL,
+	// Children specs
+	NULL,
 
-		// Extra info info
-		NULL,
+	// Extra info info
+	NULL,
 
-		// Size
-		// If 0, it is computed from the visual components if any
-		{0, 0, 0},
+	// Size
+	// If 0, it is computed from the visual components if any
+	{0, 0, 0},
 
-		// Actor's in-game type
-		0,
-
-	// Pointer to animation functions array
-	(const AnimationFunction**)&PlayAnimations,
+	// Actor's in-game type
+	0,
 
 	// Animation to play automatically
 	"Play"

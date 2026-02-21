@@ -7,23 +7,23 @@
  * that was distributed with this source code.
  */
 
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 // INCLUDES
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 #include <Actor.h>
 #include <BgmapSprite.h>
 
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 // DECLARATIONS
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 extern uint32 ProgressBarTiles[];
 extern uint16 ProgressBarMap[];
 
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 // DEFINITIONS
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 CharSetROMSpec ProgressBarCharset =
 {
@@ -83,15 +83,18 @@ BgmapSpriteROMSpec ProgressBarSpriteSpec =
 	{
 		// Sprite
 		{
-			// Allocator
-			__TYPE(BgmapSprite),
+			// Component
+			{
+				// Allocator
+				__TYPE(BgmapSprite),
 
-			// Component type
-			kSpriteComponent
+				// Component type
+				kSpriteComponent
+			},
+
+			// Array of function animations
+			(const AnimationFunction**)NULL
 		},
-
-		// Is animated?
-		false,
 
 		// Spec for the texture to display
 		(TextureSpec*)&ProgressBarTexture,
@@ -103,39 +106,20 @@ BgmapSpriteROMSpec ProgressBarSpriteSpec =
 		{0, 0, 0, 0},
 	},
 
+	// Flag to indicate in which display to show the texture (__WORLD_ON, __WORLD_LON or __WORLD_RON)
+	__WORLD_ON,
+
 	// The display mode (__WORLD_BGMAP, __WORLD_AFFINE, __WORLD_OBJECT or __WORLD_HBIAS)
 	// make sure to use the proper corresponding sprite type throughout the spec (BgmapSprite or ObjectSprite)
 	__WORLD_BGMAP,
 
 	// Pointer to affine/hbias manipulation function
 	NULL,
-
-	// Flag to indicate in which display to show the texture (__WORLD_ON, __WORLD_LON or __WORLD_RON)
-	__WORLD_ON,
 };
 
-BgmapSpriteROMSpec* const ProgressBarSprites[] =
+ComponentSpec* const ProgressBarActorComponentSpecs[] = 
 {
-	&ProgressBarSprite,
-	NULL
-};
-
-ComponentSpec** ProgressBarActorComponentSpecs[] = 
-{
-	@COMPONENTS@
-};
-
-ComponentSpec** ProgressBarActorComponentSpecs[] = 
-{
-	
-/*
-* VUEngine Video Player
-*
-* © Christian Radke and Marten Reiß
-*
-* For the full copyright and license information, please view the LICENSE file
-* that was distributed with this source code.
-*/
+	(ComponentSpec*)&ProgressBarSpriteSpec,
 	NULL
 };
 
@@ -159,9 +143,6 @@ ActorROMSpec ProgressBarActor =
 
 	// Actor's in-game type
 	kTypeNone,
-
-	// Pointer to animation functions array
-	NULL,
 
 	// Animation to play automatically
 	NULL

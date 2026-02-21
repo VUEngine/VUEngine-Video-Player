@@ -7,9 +7,9 @@
  * that was distributed with this source code.
  */
 
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 // INCLUDES
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 #include <Singleton.h>
 #include <string.h>
@@ -23,15 +23,15 @@
 #include <VIPManager.h>
 #include <VUEngine.h>
 
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 // DECLARATIONS
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 extern StageROMSpec VideoStage;
 
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 // CLASS'S METHODS
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 void VideoPlayerState::constructor()
 {
@@ -59,7 +59,7 @@ void VideoPlayerState::enter(void* owner __attribute__ ((unused)))
 	Base::enter(this, owner);
 
 	// Disable user input
-	VUEngine::disableKeypad(VUEngine::getInstance());
+	KeypadManager::enable();
 
 	// Load stage
 	GameState::configureStage(GameState::safeCast(this), (StageSpec*)&VideoStage, NULL);
@@ -67,26 +67,26 @@ void VideoPlayerState::enter(void* owner __attribute__ ((unused)))
 	// Get actors from stage
 	this->videoActor = Actor::safeCast(Container::getChildByName
 	(
-		Container::safeCast(VUEngine::getStage(VUEngine::getInstance())),
+		Container::safeCast(this->stage),
 		"VideoEnt",
 		false
 	));
 
 	this->progressBarActor = Actor::safeCast(Container::getChildByName
 	(
-		Container::safeCast(VUEngine::getStage(VUEngine::getInstance())),
+		Container::safeCast(this->stage),
 		"ProgrEnt",
 		false
 	));
 	
 	this->playActor = Actor::safeCast(Container::getChildByName
 	(
-		Container::safeCast(VUEngine::getStage(VUEngine::getInstance())),
+		Container::safeCast(this->stage),
 		"PlayEnt",
 		false
 	));
 
-	this->numberOfFrames = Actor::getNumberOfFrames(this->videoActor);
+	this->numberOfFrames = 0;//Actor::getNumberOfFrames(this->videoActor);
 	this->numberOfFrames >>= 1;
 
 	// Initially hide gui
@@ -96,7 +96,7 @@ void VideoPlayerState::enter(void* owner __attribute__ ((unused)))
 	GameState::startClocks(GameState::safeCast(this));
 
 	// Start fade in effect
-	Camera::(.*)\(Camera::getInstance()),
+	Camera::startEffect(Camera::getInstance(),
 		kFadeTo, // effect type
 		0, // initial delay (in ms)
 		NULL, // target brightness
@@ -131,6 +131,8 @@ void VideoPlayerState::execute(void* owner)
 			Actor::nextFrame(Actor::safeCast(this->videoActor));
 		}
 	}
+
+	PRINT_TIME(1, 1);
 }
 
 void VideoPlayerState::processUserInput(UserInput userInput)
@@ -250,12 +252,12 @@ void VideoPlayerState::hideGui()
 	Actor::hide(this->playActor);
 
 	// Frame counter
-	Printer::text(Printer::getInstance(), "...", 44, 25, "Number");
-	Printer::text(Printer::getInstance(), "....", 43, 26, "Number");
+	Printer::text("...", 44, 25, "Number");
+	Printer::text("....", 43, 26, "Number");
 
 	// Progress bar
-	Printer::text(Printer::getInstance(), ".......................................", 3, 25, "Number");
-	Printer::text(Printer::getInstance(), ".......................................", 3, 26, "Number");
+	Printer::text(".......................................", 3, 25, "Number");
+	Printer::text(".......................................", 3, 26, "Number");
 
 	this->guiVisible = false;
 }
@@ -268,33 +270,33 @@ void VideoPlayerState::printFrames()
 
 	if(currentFrame >= 100)
 	{
-		Printer::int32(Printer::getInstance(), currentFrame, 44, 25, "Number");
+		Printer::int32(currentFrame, 44, 25, "Number");
 	}
 	else if(currentFrame >= 10)
 	{
-		Printer::text(Printer::getInstance(), "0", 44, 25, "Number");
-		Printer::int32(Printer::getInstance(), currentFrame, 45, 25, "Number");
+		Printer::text("0", 44, 25, "Number");
+		Printer::int32(currentFrame, 45, 25, "Number");
 	}
 	else
 	{
-		Printer::text(Printer::getInstance(), "00", 44, 25, "Number");
-		Printer::int32(Printer::getInstance(), currentFrame, 46, 25, "Number");
+		Printer::text("00", 44, 25, "Number");
+		Printer::int32(currentFrame, 46, 25, "Number");
 	}
 
 	if(this->numberOfFrames >= 100)
 	{
-		Printer::text(Printer::getInstance(), "/", 43, 26, "Number");
-		Printer::int32(Printer::getInstance(), this->numberOfFrames, 44, 26, "Number");
+		Printer::text("/", 43, 26, "Number");
+		Printer::int32(this->numberOfFrames, 44, 26, "Number");
 	}
 	else if(this->numberOfFrames >= 10)
 	{
-		Printer::text(Printer::getInstance(), "/0", 43, 26, "Number");
-		Printer::int32(Printer::getInstance(), this->numberOfFrames, 45, 26, "Number");
+		Printer::text("/0", 43, 26, "Number");
+		Printer::int32(this->numberOfFrames, 45, 26, "Number");
 	}
 	else
 	{
-		Printer::text(Printer::getInstance(), "/00", 43, 26, "Number");
-		Printer::int32(Printer::getInstance(), this->numberOfFrames, 46, 26, "Number");
+		Printer::text("/00", 43, 26, "Number");
+		Printer::int32(this->numberOfFrames, 46, 26, "Number");
 	}
 }
 
@@ -322,393 +324,393 @@ void VideoPlayerState::printProgress()
 	{
 		case 0:
 		case 1:
-			Printer::text(Printer::getInstance(), ".......................................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ".......................................", 3, 26, "Number");
+			Printer::text(".......................................", 3, 25, "Number");
+			Printer::text(".......................................", 3, 26, "Number");
 			break;
 
 		case 2:
-			Printer::text(Printer::getInstance(), ";......................................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ";......................................", 3, 26, "Number");
+			Printer::text(";......................................", 3, 25, "Number");
+			Printer::text(";......................................", 3, 26, "Number");
 			break;
 
 		case 3:
-			Printer::text(Printer::getInstance(), ":......................................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":......................................", 3, 26, "Number");
+			Printer::text(":......................................", 3, 25, "Number");
+			Printer::text(":......................................", 3, 26, "Number");
 			break;
 
 		case 4:
-			Printer::text(Printer::getInstance(), ":;.....................................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":;.....................................", 3, 26, "Number");
+			Printer::text(":;.....................................", 3, 25, "Number");
+			Printer::text(":;.....................................", 3, 26, "Number");
 			break;
 
 		case 5:
-			Printer::text(Printer::getInstance(), "::.....................................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::.....................................", 3, 26, "Number");
+			Printer::text("::.....................................", 3, 25, "Number");
+			Printer::text("::.....................................", 3, 26, "Number");
 			break;
 
 		case 6:
-			Printer::text(Printer::getInstance(), "::;....................................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::;....................................", 3, 26, "Number");
+			Printer::text("::;....................................", 3, 25, "Number");
+			Printer::text("::;....................................", 3, 26, "Number");
 			break;
 
 		case 7:
-			Printer::text(Printer::getInstance(), ":::....................................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":::....................................", 3, 26, "Number");
+			Printer::text(":::....................................", 3, 25, "Number");
+			Printer::text(":::....................................", 3, 26, "Number");
 			break;
 
 		case 8:
-			Printer::text(Printer::getInstance(), ":::;...................................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":::;...................................", 3, 26, "Number");
+			Printer::text(":::;...................................", 3, 25, "Number");
+			Printer::text(":::;...................................", 3, 26, "Number");
 			break;
 
 		case 9:
-			Printer::text(Printer::getInstance(), "::::...................................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::::...................................", 3, 26, "Number");
+			Printer::text("::::...................................", 3, 25, "Number");
+			Printer::text("::::...................................", 3, 26, "Number");
 			break;
 
 		case 10:
-			Printer::text(Printer::getInstance(), "::::;..................................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::::;..................................", 3, 26, "Number");
+			Printer::text("::::;..................................", 3, 25, "Number");
+			Printer::text("::::;..................................", 3, 26, "Number");
 			break;
 
 		case 11:
-			Printer::text(Printer::getInstance(), ":::::..................................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":::::..................................", 3, 26, "Number");
+			Printer::text(":::::..................................", 3, 25, "Number");
+			Printer::text(":::::..................................", 3, 26, "Number");
 			break;
 
 		case 12:
-			Printer::text(Printer::getInstance(), ":::::;.................................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":::::;.................................", 3, 26, "Number");
+			Printer::text(":::::;.................................", 3, 25, "Number");
+			Printer::text(":::::;.................................", 3, 26, "Number");
 			break;
 
 		case 13:
-			Printer::text(Printer::getInstance(), "::::::.................................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::::::.................................", 3, 26, "Number");
+			Printer::text("::::::.................................", 3, 25, "Number");
+			Printer::text("::::::.................................", 3, 26, "Number");
 			break;
 
 		case 14:
-			Printer::text(Printer::getInstance(), "::::::;................................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::::::;................................", 3, 26, "Number");
+			Printer::text("::::::;................................", 3, 25, "Number");
+			Printer::text("::::::;................................", 3, 26, "Number");
 			break;
 
 		case 15:
-			Printer::text(Printer::getInstance(), ":::::::................................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":::::::................................", 3, 26, "Number");
+			Printer::text(":::::::................................", 3, 25, "Number");
+			Printer::text(":::::::................................", 3, 26, "Number");
 			break;
 
 		case 16:
-			Printer::text(Printer::getInstance(), ":::::::;...............................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":::::::;...............................", 3, 26, "Number");
+			Printer::text(":::::::;...............................", 3, 25, "Number");
+			Printer::text(":::::::;...............................", 3, 26, "Number");
 			break;
 
 		case 17:
-			Printer::text(Printer::getInstance(), "::::::::...............................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::::::::...............................", 3, 26, "Number");
+			Printer::text("::::::::...............................", 3, 25, "Number");
+			Printer::text("::::::::...............................", 3, 26, "Number");
 			break;
 
 		case 18:
-			Printer::text(Printer::getInstance(), "::::::::;..............................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::::::::;..............................", 3, 26, "Number");
+			Printer::text("::::::::;..............................", 3, 25, "Number");
+			Printer::text("::::::::;..............................", 3, 26, "Number");
 			break;
 
 		case 19:
-			Printer::text(Printer::getInstance(), ":::::::::..............................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":::::::::..............................", 3, 26, "Number");
+			Printer::text(":::::::::..............................", 3, 25, "Number");
+			Printer::text(":::::::::..............................", 3, 26, "Number");
 			break;
 
 		case 20:
-			Printer::text(Printer::getInstance(), ":::::::::;.............................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":::::::::;.............................", 3, 26, "Number");
+			Printer::text(":::::::::;.............................", 3, 25, "Number");
+			Printer::text(":::::::::;.............................", 3, 26, "Number");
 			break;
 
 		case 21:
-			Printer::text(Printer::getInstance(), "::::::::::.............................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::::::::::.............................", 3, 26, "Number");
+			Printer::text("::::::::::.............................", 3, 25, "Number");
+			Printer::text("::::::::::.............................", 3, 26, "Number");
 			break;
 
 		case 22:
-			Printer::text(Printer::getInstance(), "::::::::::;............................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::::::::::;............................", 3, 26, "Number");
+			Printer::text("::::::::::;............................", 3, 25, "Number");
+			Printer::text("::::::::::;............................", 3, 26, "Number");
 			break;
 
 		case 23:
-			Printer::text(Printer::getInstance(), ":::::::::::;...........................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":::::::::::;...........................", 3, 26, "Number");
+			Printer::text(":::::::::::;...........................", 3, 25, "Number");
+			Printer::text(":::::::::::;...........................", 3, 26, "Number");
 			break;
 
 		case 24:
-			Printer::text(Printer::getInstance(), "::::::::::::...........................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::::::::::::...........................", 3, 26, "Number");
+			Printer::text("::::::::::::...........................", 3, 25, "Number");
+			Printer::text("::::::::::::...........................", 3, 26, "Number");
 			break;
 
 		case 25:
-			Printer::text(Printer::getInstance(), "::::::::::::;..........................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::::::::::::;..........................", 3, 26, "Number");
+			Printer::text("::::::::::::;..........................", 3, 25, "Number");
+			Printer::text("::::::::::::;..........................", 3, 26, "Number");
 			break;
 
 		case 26:
-			Printer::text(Printer::getInstance(), ":::::::::::::..........................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":::::::::::::..........................", 3, 26, "Number");
+			Printer::text(":::::::::::::..........................", 3, 25, "Number");
+			Printer::text(":::::::::::::..........................", 3, 26, "Number");
 			break;
 
 		case 27:
-			Printer::text(Printer::getInstance(), ":::::::::::::;.........................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":::::::::::::;.........................", 3, 26, "Number");
+			Printer::text(":::::::::::::;.........................", 3, 25, "Number");
+			Printer::text(":::::::::::::;.........................", 3, 26, "Number");
 			break;
 
 		case 28:
-			Printer::text(Printer::getInstance(), "::::::::::::::.........................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::::::::::::::.........................", 3, 26, "Number");
+			Printer::text("::::::::::::::.........................", 3, 25, "Number");
+			Printer::text("::::::::::::::.........................", 3, 26, "Number");
 			break;
 
 		case 29:
-			Printer::text(Printer::getInstance(), "::::::::::::::;........................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::::::::::::::;........................", 3, 26, "Number");
+			Printer::text("::::::::::::::;........................", 3, 25, "Number");
+			Printer::text("::::::::::::::;........................", 3, 26, "Number");
 			break;
 
 		case 30:
-			Printer::text(Printer::getInstance(), ":::::::::::::::........................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":::::::::::::::........................", 3, 26, "Number");
+			Printer::text(":::::::::::::::........................", 3, 25, "Number");
+			Printer::text(":::::::::::::::........................", 3, 26, "Number");
 			break;
 
 		case 31:
-			Printer::text(Printer::getInstance(), ":::::::::::::::;.......................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":::::::::::::::;.......................", 3, 26, "Number");
+			Printer::text(":::::::::::::::;.......................", 3, 25, "Number");
+			Printer::text(":::::::::::::::;.......................", 3, 26, "Number");
 			break;
 
 		case 32:
-			Printer::text(Printer::getInstance(), "::::::::::::::::.......................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::::::::::::::::.......................", 3, 26, "Number");
+			Printer::text("::::::::::::::::.......................", 3, 25, "Number");
+			Printer::text("::::::::::::::::.......................", 3, 26, "Number");
 			break;
 
 		case 33:
-			Printer::text(Printer::getInstance(), "::::::::::::::::;......................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::::::::::::::::;......................", 3, 26, "Number");
+			Printer::text("::::::::::::::::;......................", 3, 25, "Number");
+			Printer::text("::::::::::::::::;......................", 3, 26, "Number");
 			break;
 
 		case 34:
-			Printer::text(Printer::getInstance(), ":::::::::::::::::......................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":::::::::::::::::......................", 3, 26, "Number");
+			Printer::text(":::::::::::::::::......................", 3, 25, "Number");
+			Printer::text(":::::::::::::::::......................", 3, 26, "Number");
 			break;
 
 		case 35:
-			Printer::text(Printer::getInstance(), ":::::::::::::::::;.....................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":::::::::::::::::;.....................", 3, 26, "Number");
+			Printer::text(":::::::::::::::::;.....................", 3, 25, "Number");
+			Printer::text(":::::::::::::::::;.....................", 3, 26, "Number");
 			break;
 
 		case 36:
-			Printer::text(Printer::getInstance(), "::::::::::::::::::.....................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::::::::::::::::::.....................", 3, 26, "Number");
+			Printer::text("::::::::::::::::::.....................", 3, 25, "Number");
+			Printer::text("::::::::::::::::::.....................", 3, 26, "Number");
 			break;
 
 		case 37:
-			Printer::text(Printer::getInstance(), "::::::::::::::::::;....................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::::::::::::::::::;....................", 3, 26, "Number");
+			Printer::text("::::::::::::::::::;....................", 3, 25, "Number");
+			Printer::text("::::::::::::::::::;....................", 3, 26, "Number");
 			break;
 
 		case 38:
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::....................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::....................", 3, 26, "Number");
+			Printer::text(":::::::::::::::::::....................", 3, 25, "Number");
+			Printer::text(":::::::::::::::::::....................", 3, 26, "Number");
 			break;
 
 		case 39:
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::;...................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::;...................", 3, 26, "Number");
+			Printer::text(":::::::::::::::::::;...................", 3, 25, "Number");
+			Printer::text(":::::::::::::::::::;...................", 3, 26, "Number");
 			break;
 
 		case 40:
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::...................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::...................", 3, 26, "Number");
+			Printer::text("::::::::::::::::::::...................", 3, 25, "Number");
+			Printer::text("::::::::::::::::::::...................", 3, 26, "Number");
 			break;
 
 		case 41:
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::;..................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::;..................", 3, 26, "Number");
+			Printer::text("::::::::::::::::::::;..................", 3, 25, "Number");
+			Printer::text("::::::::::::::::::::;..................", 3, 26, "Number");
 			break;
 
 		case 42:
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::..................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::..................", 3, 26, "Number");
+			Printer::text(":::::::::::::::::::::..................", 3, 25, "Number");
+			Printer::text(":::::::::::::::::::::..................", 3, 26, "Number");
 			break;
 
 		case 43:
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::;.................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::;.................", 3, 26, "Number");
+			Printer::text(":::::::::::::::::::::;.................", 3, 25, "Number");
+			Printer::text(":::::::::::::::::::::;.................", 3, 26, "Number");
 			break;
 
 		case 44:
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::::.................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::::.................", 3, 26, "Number");
+			Printer::text("::::::::::::::::::::::.................", 3, 25, "Number");
+			Printer::text("::::::::::::::::::::::.................", 3, 26, "Number");
 			break;
 
 		case 45:
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::::;................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::::;................", 3, 26, "Number");
+			Printer::text("::::::::::::::::::::::;................", 3, 25, "Number");
+			Printer::text("::::::::::::::::::::::;................", 3, 26, "Number");
 			break;
 
 		case 46:
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::::................", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::::................", 3, 26, "Number");
+			Printer::text(":::::::::::::::::::::::................", 3, 25, "Number");
+			Printer::text(":::::::::::::::::::::::................", 3, 26, "Number");
 			break;
 
 		case 47:
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::::;...............", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::::;...............", 3, 26, "Number");
+			Printer::text(":::::::::::::::::::::::;...............", 3, 25, "Number");
+			Printer::text(":::::::::::::::::::::::;...............", 3, 26, "Number");
 			break;
 
 		case 48:
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::::::...............", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::::::...............", 3, 26, "Number");
+			Printer::text("::::::::::::::::::::::::...............", 3, 25, "Number");
+			Printer::text("::::::::::::::::::::::::...............", 3, 26, "Number");
 			break;
 
 		case 49:
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::::::;..............", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::::::;..............", 3, 26, "Number");
+			Printer::text("::::::::::::::::::::::::;..............", 3, 25, "Number");
+			Printer::text("::::::::::::::::::::::::;..............", 3, 26, "Number");
 			break;
 
 		case 50:
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::::::..............", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::::::..............", 3, 26, "Number");
+			Printer::text(":::::::::::::::::::::::::..............", 3, 25, "Number");
+			Printer::text(":::::::::::::::::::::::::..............", 3, 26, "Number");
 			break;
 
 		case 51:
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::::::;.............", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::::::;.............", 3, 26, "Number");
+			Printer::text(":::::::::::::::::::::::::;.............", 3, 25, "Number");
+			Printer::text(":::::::::::::::::::::::::;.............", 3, 26, "Number");
 			break;
 
 		case 52:
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::::::::.............", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::::::::.............", 3, 26, "Number");
+			Printer::text("::::::::::::::::::::::::::.............", 3, 25, "Number");
+			Printer::text("::::::::::::::::::::::::::.............", 3, 26, "Number");
 			break;
 
 		case 53:
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::::::::;............", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::::::::;............", 3, 26, "Number");
+			Printer::text("::::::::::::::::::::::::::;............", 3, 25, "Number");
+			Printer::text("::::::::::::::::::::::::::;............", 3, 26, "Number");
 			break;
 
 		case 54:
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::::::::............", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::::::::............", 3, 26, "Number");
+			Printer::text(":::::::::::::::::::::::::::............", 3, 25, "Number");
+			Printer::text(":::::::::::::::::::::::::::............", 3, 26, "Number");
 			break;
 
 		case 55:
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::::::::;...........", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::::::::;...........", 3, 26, "Number");
+			Printer::text(":::::::::::::::::::::::::::;...........", 3, 25, "Number");
+			Printer::text(":::::::::::::::::::::::::::;...........", 3, 26, "Number");
 			break;
 
 		case 56:
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::::::::::...........", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::::::::::...........", 3, 26, "Number");
+			Printer::text("::::::::::::::::::::::::::::...........", 3, 25, "Number");
+			Printer::text("::::::::::::::::::::::::::::...........", 3, 26, "Number");
 			break;
 
 		case 57:
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::::::::::;..........", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::::::::::;..........", 3, 26, "Number");
+			Printer::text("::::::::::::::::::::::::::::;..........", 3, 25, "Number");
+			Printer::text("::::::::::::::::::::::::::::;..........", 3, 26, "Number");
 			break;
 
 		case 58:
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::::::::::..........", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::::::::::..........", 3, 26, "Number");
+			Printer::text(":::::::::::::::::::::::::::::..........", 3, 25, "Number");
+			Printer::text(":::::::::::::::::::::::::::::..........", 3, 26, "Number");
 			break;
 
 		case 59:
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::::::::::;.........", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::::::::::;.........", 3, 26, "Number");
+			Printer::text(":::::::::::::::::::::::::::::;.........", 3, 25, "Number");
+			Printer::text(":::::::::::::::::::::::::::::;.........", 3, 26, "Number");
 			break;
 
 		case 60:
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::::::::::::.........", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::::::::::::.........", 3, 26, "Number");
+			Printer::text("::::::::::::::::::::::::::::::.........", 3, 25, "Number");
+			Printer::text("::::::::::::::::::::::::::::::.........", 3, 26, "Number");
 			break;
 
 		case 61:
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::::::::::::;........", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::::::::::::;........", 3, 26, "Number");
+			Printer::text("::::::::::::::::::::::::::::::;........", 3, 25, "Number");
+			Printer::text("::::::::::::::::::::::::::::::;........", 3, 26, "Number");
 			break;
 
 		case 62:
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::::::::::::........", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::::::::::::........", 3, 26, "Number");
+			Printer::text(":::::::::::::::::::::::::::::::........", 3, 25, "Number");
+			Printer::text(":::::::::::::::::::::::::::::::........", 3, 26, "Number");
 			break;
 
 		case 63:
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::::::::::::;.......", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::::::::::::;.......", 3, 26, "Number");
+			Printer::text(":::::::::::::::::::::::::::::::;.......", 3, 25, "Number");
+			Printer::text(":::::::::::::::::::::::::::::::;.......", 3, 26, "Number");
 			break;
 
 		case 64:
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::::::::::::::.......", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::::::::::::::.......", 3, 26, "Number");
+			Printer::text("::::::::::::::::::::::::::::::::.......", 3, 25, "Number");
+			Printer::text("::::::::::::::::::::::::::::::::.......", 3, 26, "Number");
 			break;
 
 		case 65:
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::::::::::::::;......", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::::::::::::::;......", 3, 26, "Number");
+			Printer::text("::::::::::::::::::::::::::::::::;......", 3, 25, "Number");
+			Printer::text("::::::::::::::::::::::::::::::::;......", 3, 26, "Number");
 			break;
 
 		case 66:
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::::::::::::::......", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::::::::::::::......", 3, 26, "Number");
+			Printer::text(":::::::::::::::::::::::::::::::::......", 3, 25, "Number");
+			Printer::text(":::::::::::::::::::::::::::::::::......", 3, 26, "Number");
 			break;
 
 		case 67:
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::::::::::::::;.....", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::::::::::::::;.....", 3, 26, "Number");
+			Printer::text(":::::::::::::::::::::::::::::::::;.....", 3, 25, "Number");
+			Printer::text(":::::::::::::::::::::::::::::::::;.....", 3, 26, "Number");
 			break;
 
 		case 68:
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::::::::::::::::.....", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::::::::::::::::.....", 3, 26, "Number");
+			Printer::text("::::::::::::::::::::::::::::::::::.....", 3, 25, "Number");
+			Printer::text("::::::::::::::::::::::::::::::::::.....", 3, 26, "Number");
 			break;
 
 		case 69:
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::::::::::::::::;....", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::::::::::::::::;....", 3, 26, "Number");
+			Printer::text("::::::::::::::::::::::::::::::::::;....", 3, 25, "Number");
+			Printer::text("::::::::::::::::::::::::::::::::::;....", 3, 26, "Number");
 			break;
 
 		case 70:
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::::::::::::::::....", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::::::::::::::::....", 3, 26, "Number");
+			Printer::text(":::::::::::::::::::::::::::::::::::....", 3, 25, "Number");
+			Printer::text(":::::::::::::::::::::::::::::::::::....", 3, 26, "Number");
 			break;
 
 		case 71:
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::::::::::::::::;...", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::::::::::::::::;...", 3, 26, "Number");
+			Printer::text(":::::::::::::::::::::::::::::::::::;...", 3, 25, "Number");
+			Printer::text(":::::::::::::::::::::::::::::::::::;...", 3, 26, "Number");
 			break;
 
 		case 72:
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::::::::::::::::::...", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::::::::::::::::::...", 3, 26, "Number");
+			Printer::text("::::::::::::::::::::::::::::::::::::...", 3, 25, "Number");
+			Printer::text("::::::::::::::::::::::::::::::::::::...", 3, 26, "Number");
 			break;
 
 		case 73:
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::::::::::::::::::;..", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::::::::::::::::::;..", 3, 26, "Number");
+			Printer::text("::::::::::::::::::::::::::::::::::::;..", 3, 25, "Number");
+			Printer::text("::::::::::::::::::::::::::::::::::::;..", 3, 26, "Number");
 			break;
 
 		case 74:
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::::::::::::::::::..", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::::::::::::::::::..", 3, 26, "Number");
+			Printer::text(":::::::::::::::::::::::::::::::::::::..", 3, 25, "Number");
+			Printer::text(":::::::::::::::::::::::::::::::::::::..", 3, 26, "Number");
 			break;
 
 		case 75:
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::::::::::::::::::;.", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::::::::::::::::::;.", 3, 26, "Number");
+			Printer::text(":::::::::::::::::::::::::::::::::::::;.", 3, 25, "Number");
+			Printer::text(":::::::::::::::::::::::::::::::::::::;.", 3, 26, "Number");
 			break;
 
 		case 76:
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::::::::::::::::::::.", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::::::::::::::::::::.", 3, 26, "Number");
+			Printer::text("::::::::::::::::::::::::::::::::::::::.", 3, 25, "Number");
+			Printer::text("::::::::::::::::::::::::::::::::::::::.", 3, 26, "Number");
 			break;
 
 		case 77:
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::::::::::::::::::::;", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), "::::::::::::::::::::::::::::::::::::::;", 3, 26, "Number");
+			Printer::text("::::::::::::::::::::::::::::::::::::::;", 3, 25, "Number");
+			Printer::text("::::::::::::::::::::::::::::::::::::::;", 3, 26, "Number");
 			break;
 
 		case 78:
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::::::::::::::::::::", 3, 25, "Number");
-			Printer::text(Printer::getInstance(), ":::::::::::::::::::::::::::::::::::::::", 3, 26, "Number");
+			Printer::text(":::::::::::::::::::::::::::::::::::::::", 3, 25, "Number");
+			Printer::text(":::::::::::::::::::::::::::::::::::::::", 3, 26, "Number");
 			break;
 	}
 }

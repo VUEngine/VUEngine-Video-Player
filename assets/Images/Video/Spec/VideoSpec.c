@@ -7,16 +7,16 @@
  * that was distributed with this source code.
  */
 
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 // INCLUDES
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 #include <Actor.h>
 #include <BgmapSprite.h>
 
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 // DECLARATIONS
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 extern uint32 VideoLTiles[];
 extern uint32 VideoLTilesFrameOffsets[];
@@ -25,9 +25,9 @@ extern uint32 VideoRTiles[];
 extern uint32 VideoRTilesFrameOffsets[];
 extern uint16 VideoRMap[];
 
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 // DEFINITIONS
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 AnimationFunctionROMSpec VideoHiColorAnimation =
 {
@@ -74,12 +74,7 @@ AnimationFunctionROMSpec VideoHiColorAnimation =
 	1,
 
 	// Whether to play it in loop or not
-	true,
-
-	// Callback on animation completion
-	NULL,
-
-	// Animation's name
+	true
 	"HiColor",
 };
 
@@ -128,12 +123,7 @@ AnimationFunctionROMSpec Video4ColorAnimation =
 	1,
 
 	// Whether to play it in loop or not
-	true,
-
-	// Callback on animation completion
-	NULL,
-
-	// Animation's name
+	true
 	"4Color",
 };
 
@@ -203,15 +193,18 @@ BgmapSpriteROMSpec VideoLSpriteSpec =
 	{
 		// Sprite
 		{
-			// Allocator
-			__TYPE(BgmapSprite),
+			// Component
+			{
+				// Allocator
+				__TYPE(BgmapSprite),
 
-			// Component type
-			kSpriteComponent
+				// Component type
+				kSpriteComponent
+			},
+
+			// Array of function animations
+			(const AnimationFunction**)NULL
 		},
-
-		// Is animated?
-		true,
 
 		// Spec for the texture to display
 		(TextureSpec*)&VideoLTexture,
@@ -223,15 +216,15 @@ BgmapSpriteROMSpec VideoLSpriteSpec =
 		{0, 0, 0, 0},
 	},
 
+	// Flag to indicate in which display to show the texture (__WORLD_ON, __WORLD_LON or __WORLD_RON)
+	__WORLD_LON,
+
 	// The display mode (__WORLD_BGMAP, __WORLD_AFFINE, __WORLD_OBJECT or __WORLD_HBIAS)
 	// make sure to use the proper corresponding sprite type throughout the spec (BgmapSprite or ObjectSprite)
 	__WORLD_BGMAP,
 
 	// Pointer to affine / hbias manipulation function
 	NULL,
-
-	// Flag to indicate in which display to show the texture (__WORLD_ON, __WORLD_LON or __WORLD_RON)
-	__WORLD_LON,
 };
 
 CharSetROMSpec VideoRCharset =
@@ -292,15 +285,18 @@ BgmapSpriteROMSpec VideoRSpriteSpec =
 	{
 		// Sprite
 		{
-			// Allocator
-			__TYPE(BgmapSprite),
+			// Component
+			{
+				// Allocator
+				__TYPE(BgmapSprite),
 
-			// Component type
-			kSpriteComponent
+				// Component type
+				kSpriteComponent
+			},
+
+			// Array of function animations
+			(const AnimationFunction**)NULL
 		},
-
-		// Is animated?
-		true,
 
 		// Spec for the texture to display
 		(TextureSpec*)&VideoRTexture,
@@ -312,67 +308,44 @@ BgmapSpriteROMSpec VideoRSpriteSpec =
 		{0, 0, 0, 0},
 	},
 
+	// Flag to indicate in which display to show the texture (__WORLD_ON, __WORLD_LON or __WORLD_RON)
+	__WORLD_RON,
+
 	// The display mode (__WORLD_BGMAP, __WORLD_AFFINE, __WORLD_OBJECT or __WORLD_HBIAS)
 	// make sure to use the proper corresponding sprite type throughout the spec (BgmapSprite or ObjectSprite)
 	__WORLD_BGMAP,
 
 	// Pointer to affine / hbias manipulation function
 	NULL,
-
-	// Flag to indicate in which display to show the texture (__WORLD_ON, __WORLD_LON or __WORLD_RON)
-	__WORLD_RON,
 };
 
-BgmapSpriteROMSpec* const VideoSprites[] =
+ComponentSpec* const VideoActorComponentSpecs[] = 
 {
-	&VideoLSpriteSpec,
-	&VideoRSpriteSpec,
-	NULL
-};
-
-ComponentSpec** VideoActorComponentSpecs[] = 
-{
-	@COMPONENTS@
-};
-
-ComponentSpec** VideoActorComponentSpecs[] = 
-{
-	
-/*
-* VUEngine Video Player
-*
-* © Christian Radke and Marten Reiß
-*
-* For the full copyright and license information, please view the LICENSE file
-* that was distributed with this source code.
-*/
+	(ComponentSpec*)&VideoLSpriteSpec,
+	(ComponentSpec*)&VideoRSpriteSpec,
 	NULL
 };
 
 ActorROMSpec VideoActor =
 {
-	{
-		// Class allocator
-		__TYPE(Actor),
+	// Class allocator
+	__TYPE(Actor),
 
-		// Component specs
-		(ComponentSpec**)VideoActorComponentSpecs,
+	// Component specs
+	(ComponentSpec**)VideoActorComponentSpecs,
 
-		// Children specs
-		NULL,
+	// Children specs
+	NULL,
 
-		// Extra info info
-		NULL,
+	// Extra info info
+	NULL,
 
-		// Size
-		// If 0, it is computed from the visual components if any
-		{0, 0, 0},
+	// Size
+	// If 0, it is computed from the visual components if any
+	{0, 0, 0},
 
-		// Actor's in-game type
-		0,
-
-	// Pointer to animation functions array
-	(const AnimationFunction**)&VideoAnimations,
+	// Actor's in-game type
+	0,
 
 	// Animation to play automatically
 	"HiColor"

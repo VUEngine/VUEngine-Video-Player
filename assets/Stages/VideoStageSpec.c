@@ -7,39 +7,39 @@
  * that was distributed with this source code.
  */
 
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 // INCLUDES
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 #include <Stage.h>
 #include <Fonts.h>
 #include <VIPManager.h>
 
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 // DECLARATIONS
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 extern ActorSpec PlayActor;
 extern ActorSpec ProgressBarActor;
 extern ActorSpec VideoActor;
 extern FontSpec NumberFontSpec;
 
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 // ASSETS
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 PositionedActorROMSpec VideoStageChildren[] =
 {
+	{NULL, {0, 0, 0}, {0, 0, 0}, {1, 1, 1}, 0, NULL, NULL, NULL, false},
 	{&PlayActor,			{-192 + 12, 112 - 16, 0}, {0, 0, 0}, {1, 1, 1}, 0, "PlayEnt", NULL, NULL, true},
 	{&ProgressBarActor,	{0 - 8, 112 - 16, 0}, {0, 0, 0}, {1, 1, 1}, 0, "ProgrEnt", NULL, NULL, true},
 	{&VideoActor,			{0, 0, 0}, {0, 0, 0}, {1, 1, 1}, 1, "VideoEnt", NULL, NULL, true},
 
-	{NULL, {0, 0, 0}, {0, 0, 0}, {1, 1, 1}, 0, NULL, NULL, NULL, false},
 };
 
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 // ASSETS LISTS
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 FontROMSpec* const VideoStageFonts[] =
 {
@@ -48,9 +48,9 @@ FontROMSpec* const VideoStageFonts[] =
 	NULL
 };
 
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 // STAGE DEFINITION
-//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+//——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 StageROMSpec VideoStage =
 {
@@ -64,16 +64,10 @@ StageROMSpec VideoStage =
 		kMS,
 	},
 
-	// Sound config
-	{
-		__DEFAULT_PCM_HZ,
-		0
-	},
-
 	// General stage's attributes
 	{
 		// Stage's size in pixels
-   	{
+		{
 			// x
 			__SCREEN_WIDTH,
 			// y
@@ -83,7 +77,7 @@ StageROMSpec VideoStage =
 		},
 
 		// Camera's initial position inside the stage
-   	{
+   		{
 			// x
 			0,
 			// y
@@ -134,14 +128,14 @@ StageROMSpec VideoStage =
 		16,
 
 		// Color configuration
-   	{
+   		{
 			// Background color
 			__COLOR_BLACK,
 
 			// Brightness
 			// These values times the repeat values specified in the column table (max. 16) make the final
 			// brightness values on the respective regions of the screen. maximum brightness is 128.
-   	{
+   			{
 				// Dark red
 				__BRIGHTNESS_DARK_RED,
 				// Medium red
@@ -155,59 +149,47 @@ StageROMSpec VideoStage =
 		},
 
 		// Palettes' configuration
-   	{
-		{
-			// Bgmap palette 0
+   		{
+			{
+				// Bgmap palette 0
 				__BGMAP_PALETTE_0,
-			// Bgmap palette 1
+				// Bgmap palette 1
 				__BGMAP_PALETTE_1,
 				// Bgmap palette 2
 				__BGMAP_PALETTE_2,
-			// Bgmap palette 3
+				// Bgmap palette 3
 				__BGMAP_PALETTE_3,
-		},
-		{
-			// Object palette 0
+			},
+			{
+				// Object palette 0
 				__OBJECT_PALETTE_0,
-			// Object palette 1
+				// Object palette 1
 				__OBJECT_PALETTE_1,
-			// Object palette 2
+				// Object palette 2
 				__OBJECT_PALETTE_2,
-			// Object palette 3
+				// Object palette 3
 				__OBJECT_PALETTE_3,
-		},
+			},
 		},
 
 		// Bgmap segments configuration
 		// Number of BGMAP segments reserved for the param
 		0,
 
-		// Object segments' sizes (__spt0 to __spt3, up to 1024 in total)
-		// Can impact performance, make sure to configure only as large as maximally needed
-   	{
+		// Object Sprite Containers configuration
+	   	{
 			// __spt0
-		0,
+			{false, 0},
 			// __spt1
-		0,
+			{false, 0},
 			// __spt2
-		0,
+			{false, 0},
 			// __spt3
-		0,
-		},
-
-		// Object segments' z coordinates (__spt0 to __spt3)
-		// Note that each SPT's z coordinate much be larger than or equal to the previous one's,
-		// since the VIP renders OBJ Worlds in reverse order (__SPT3 to __SPT0)
-   	{
-			// __spt0
-		__F_TO_FIX10_6(0),
-		__F_TO_FIX10_6(0),
-		__F_TO_FIX10_6(0),
-		__F_TO_FIX10_6(0),
+			{false, 0},
 		},
 
 		// Struct defining the optical settings for the stage
-   	{
+	   	{
 			// Maximum view distance's power
 			__MAXIMUM_X_VIEW_DISTANCE,
 			__MAXIMUM_Y_VIEW_DISTANCE,
@@ -227,10 +209,10 @@ StageROMSpec VideoStage =
 	// Physical world's properties
 	{
 		// Gravity
-   	{
-		__F_TO_FIX10_6(0),
-		__F_TO_FIX10_6(0),
-		__F_TO_FIX10_6(0),
+   		{
+			__F_TO_FIX10_6(0),
+			__F_TO_FIX10_6(0),
+			__F_TO_FIX10_6(0),
 		},
 
 		// Friction coefficient
@@ -255,8 +237,8 @@ StageROMSpec VideoStage =
 	// Actors
 	{
 		// UI configuration
-   	{
-		NULL,
+   		{
+			NULL,
 			NULL,
 		},
 
