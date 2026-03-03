@@ -3,7 +3,7 @@
 ###########################################################################################################
 
 # VUEngine plugins which the project uses
-PLUGINS							= 
+PLUGINS	  = platforms//VirtualBoy
 
 # Optimization level
 OPTIMIZATION					= O2
