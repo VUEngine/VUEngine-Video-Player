@@ -16,11 +16,11 @@
 
 #include <Camera.h>
 #include <CameraEffectManager.h>
-#include <KeypadManager.h>
+#include <Keypad.h>
 #include <MessageDispatcher.h>
 #include <Printer.h>
 #include <VideoPlayerState.h>
-#include <VIPManager.h>
+#include <DisplayUnit.h>
 #include <VUEngine.h>
 
 //——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
@@ -59,7 +59,7 @@ void VideoPlayerState::enter(void* owner __attribute__ ((unused)))
 	Base::enter(this, owner);
 
 	// Disable user input
-	KeypadManager::enable();
+	Keypad::enable();
 
 	// Load stage
 	GameState::configureStage(GameState::safeCast(this), (StageSpec*)&VideoStage, NULL);
@@ -730,7 +730,7 @@ bool VideoPlayerState::onEvent(ListenerObject eventFirer __attribute__((unused))
 		case kEventEffectFadeInComplete:
 		{
 			// Enable user input
-			KeypadManager::enable();
+			Keypad::enable();
 
 			return true;
 		}
